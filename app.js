@@ -1,12 +1,19 @@
 const express = require("express");
 const app = express();
+const { handleError } = require("./utils/error");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+app.use("/api/user/", require("./views/user"));
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
+
 app.use(express.json());
 
-app.listen(process.env.PORT, () => {
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
   console.log(`Server running on port: ${process.env.PORT}`);
 });
