@@ -7,6 +7,6 @@ if (process.env.NODE_ENV !== "production") {
 
 app.use(express.json());
 
-app.listen();
-
-console.log("Value for: ", process.env.FOO);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port: ${process.env.PORT}`);
+});
