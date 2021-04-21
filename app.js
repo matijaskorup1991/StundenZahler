@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const { connectDB } = require("./DB/DB");
-const { handleError } = require("./utils/error");
+
+app.use(express.json());
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -9,14 +10,17 @@ if (process.env.NODE_ENV !== "production") {
 
 connectDB();
 
-app.use("/api/user/", require("./views/user"));
-app.use((err, req, res, next) => {
-  handleError(err, res);
+app.use("/api/users/", require("./routes/user"));
+app.use((error, req, res, next) => {
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(error.code || 500).json({
+    message: error.message || "Unknown Error!",
+  });
 });
-
-app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port: ${process.env.PORT}`);
+  console.log(`Server running on port: ${PORT}`);
 });
