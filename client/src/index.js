@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
-import "./index.css";
+import "normalize.css";
+import "../index.css";
 
 const App = () => <h1>Hello World</h1>;
 
