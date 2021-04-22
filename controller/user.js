@@ -16,8 +16,7 @@ function sendTokenResponse(user, statusCode, res) {
   res.status(statusCode).cookie("token", token, options).json({
     sucess: true,
     token,
-    username: user.username,
-    email: user.email,
+    user,
   });
 }
 
@@ -33,6 +32,24 @@ const register = asyncCall(async (req, res, next) => {
   sendTokenResponse(user, 201, res);
 });
 
+const login = asyncCall(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    return next(new ErrorHandler("User does not exist!", 404));
+  }
+
+  const isMatch = await user.comparePassword(password);
+
+  if (!isMatch) {
+    return next(new ErrorHandler("Wrong password!", 403));
+  }
+
+  sendTokenResponse(user, 200, res);
+});
+
 module.exports = {
   register,
+  login,
 };

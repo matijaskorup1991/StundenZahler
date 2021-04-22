@@ -27,6 +27,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     minLength: 6,
     trim: true,
+    select: false,
   },
 });
 
@@ -45,6 +46,14 @@ UserSchema.methods.getSignetJwt = function () {
   return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
     expiresIn: 36000,
   });
+};
+
+UserSchema.methods.comparePassword = async function (enteredPassword) {
+  try {
+    return await bcrypt.compare(enteredPassword, this.password);
+  } catch (error) {
+    return next(error);
+  }
 };
 
 const User = mongoose.model("User", UserSchema);
