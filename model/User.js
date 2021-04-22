@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 function validateEmail(email) {
   let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -39,6 +40,12 @@ UserSchema.pre("save", async function (next) {
   let salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+UserSchema.methods.getSignetJwt = function () {
+  return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: 36000,
+  });
+};
 
 const User = mongoose.model("User", UserSchema);
 module.exports = User;
