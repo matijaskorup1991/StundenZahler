@@ -1,11 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 const app = express();
 const { connectDB } = require("./DB/DB");
 const ErrorHandler = require("./utils/error");
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
