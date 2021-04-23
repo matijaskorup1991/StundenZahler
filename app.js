@@ -15,7 +15,8 @@ if (process.env.NODE_ENV !== "production") {
 
 connectDB();
 
-app.use("/api/users/", require("./routes/user"));
+app.use("/api/user/", require("./routes/user"));
+app.use("/api/month/", require("./routes/month"));
 app.use((req, res, next) => {
   return next(new ErrorHandler("Page not found!", 404));
 });
