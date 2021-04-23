@@ -1,4 +1,5 @@
 const User = require("../model/User");
+const Month = require("../model/Month");
 const ErrorHandler = require("../utils/error");
 const asyncCall = require("../utils/asyncCall");
 
@@ -63,8 +64,18 @@ const logout = asyncCall(async (req, res, next) => {
   });
 });
 
+const deleteMyProfile = asyncCall(async (req, res, next) => {
+  await Month.deleteMany({ user: req.user._id });
+  await User.findByIdAndDelete(req.user._id);
+  res.status(200).json({
+    success: true,
+    message: "Profile deleted successfully",
+  });
+});
+
 module.exports = {
   register,
   login,
   logout,
+  deleteMyProfile,
 };
