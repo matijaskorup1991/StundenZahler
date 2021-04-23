@@ -14,6 +14,20 @@ const getAllMonths = asyncCall(async (req, res, next) => {
   });
 });
 
+const deleteMonth = asyncCall(async (req, res, next) => {
+  let month = await Month.findById(req.params.id);
+  if (!month) {
+    return next(new ErrorHandler("File not found!", 404));
+  }
+  await month.remove();
+
+  res.status(200).json({
+    success: true,
+    message: "File deleted!",
+  });
+});
+
 module.exports = {
   getAllMonths,
+  deleteMonth,
 };
