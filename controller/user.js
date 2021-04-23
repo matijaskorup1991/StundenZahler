@@ -1,5 +1,5 @@
 const User = require("../model/User");
-const { ErrorHandler } = require("../utils/error");
+const ErrorHandler = require("../utils/error");
 const asyncCall = require("../utils/asyncCall");
 
 function sendTokenResponse(user, statusCode, res) {
@@ -16,7 +16,8 @@ function sendTokenResponse(user, statusCode, res) {
   res.status(statusCode).cookie("token", token, options).json({
     sucess: true,
     token,
-    user,
+    username: user.username,
+    email: user.email,
   });
 }
 
@@ -36,6 +37,7 @@ const login = asyncCall(async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");
+
   if (!user) {
     return next(new ErrorHandler("User does not exist!", 404));
   }

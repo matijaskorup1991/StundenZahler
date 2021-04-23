@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../model/User");
 const asyncCall = require("../utils/asyncCall");
 
-const protect = asyncCall(async (req, res, next) => {
+let protect = asyncCall(async (req, res, next) => {
   let token;
 
   if (
@@ -11,8 +11,8 @@ const protect = asyncCall(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookie.token) {
-    token = req.cookie.token;
+  } else if (req.cookies.token) {
+    token = req.cookies.token;
   }
 
   if (!token) {
@@ -21,10 +21,15 @@ const protect = asyncCall(async (req, res, next) => {
     );
   }
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
-  req.user = await User.findById(decoded.id);
-  next();
+    req.user = await User.findById(decoded._id);
+
+    next();
+  } catch (error) {
+    return next(error);
+  }
 });
 
 module.exports = {
