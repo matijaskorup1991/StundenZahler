@@ -27,7 +27,16 @@ const deleteMonth = asyncCall(async (req, res, next) => {
   });
 });
 
+const createMonth = asyncCall(async (req, res, next) => {
+  let month = await Month.create(req.body);
+  res.status(201).json({
+    success: true,
+    month,
+  });
+});
+
 module.exports = {
   getAllMonths,
   deleteMonth,
+  createMonth,
 };

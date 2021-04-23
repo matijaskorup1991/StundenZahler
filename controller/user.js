@@ -64,6 +64,18 @@ const logout = asyncCall(async (req, res, next) => {
   });
 });
 
+const getMe = asyncCall(async (req, res, next) => {
+  let user = await (await User.findById(req.user._id)).select("+password");
+  if (!user) {
+    return next(new ErrorHandler("Could not fina a profile!", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
 const deleteMyProfile = asyncCall(async (req, res, next) => {
   await Month.deleteMany({ user: req.user._id });
   await User.findByIdAndDelete(req.user._id);
@@ -78,4 +90,5 @@ module.exports = {
   login,
   logout,
   deleteMyProfile,
+  getMe,
 };
