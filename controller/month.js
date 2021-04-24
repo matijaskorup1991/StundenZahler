@@ -15,6 +15,46 @@ const getAllMonths = asyncCall(async (req, res, next) => {
   });
 });
 
+const createMonth = asyncCall(async (req, res, next) => {
+  let month = await Month.create(req.body);
+  res.status(201).json({
+    success: true,
+    month,
+  });
+});
+
+const getSingleMonth = asyncCall(async (req, res, next) => {
+  let month = await Month.findById(req.params.id);
+  if (!month) {
+    return next(new ErrorHandler("Month not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    month,
+  });
+});
+
+const updateMonth = asyncCall(async (req, res, next) => {
+  let { newHour, idToUpdate } = req.body;
+
+  if (!newHour || !idToUpdate) {
+    return next(new ErrorHandler("Please provide a valid data!", 403));
+  }
+
+  let month = await Month.findById(req.params.id);
+  let monthIndex = month.hours.findIndex((el) => el._id == idToUpdate);
+
+  month.hours[monthIndex].hour = newHour;
+
+  await month.save();
+
+  res.status(200).json({
+    success: true,
+    month,
+  });
+});
+
 const deleteMonth = asyncCall(async (req, res, next) => {
   let month = await Month.findById(req.params.id);
   if (!month) {
@@ -28,16 +68,10 @@ const deleteMonth = asyncCall(async (req, res, next) => {
   });
 });
 
-const createMonth = asyncCall(async (req, res, next) => {
-  let month = await Month.create(req.body);
-  res.status(201).json({
-    success: true,
-    month,
-  });
-});
-
 module.exports = {
   getAllMonths,
+  getSingleMonth,
+  updateMonth,
   deleteMonth,
   createMonth,
 };

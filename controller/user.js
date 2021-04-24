@@ -52,6 +52,26 @@ const login = asyncCall(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
+const updateProfile = asyncCall(async (req, res, next) => {
+  let { oldPassword, newPassword } = req.body;
+  let user = await User.findById(req.user._id).select("+password");
+
+  if (!oldPassword || !newPassword) {
+    return next(new ErrorHandler("Please provide all Information!", 401));
+  }
+
+  const isMatch = await user.comparePassword(oldPassword);
+
+  if (!isMatch) {
+    return next(new ErrorHandler("Wrong Password!", 403));
+  }
+
+  user.password = newPassword;
+  await user.save();
+
+  res.status(200).json({ success: true, message: "Password updated" });
+});
+
 const logout = asyncCall(async (req, res, next) => {
   res.cookie("token", "none", {
     expires: new Date(Date.now() + 10 * 100),
@@ -91,4 +111,5 @@ module.exports = {
   logout,
   deleteMyProfile,
   getMe,
+  updateProfile,
 };
