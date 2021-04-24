@@ -85,9 +85,9 @@ const logout = asyncCall(async (req, res, next) => {
 });
 
 const getMe = asyncCall(async (req, res, next) => {
-  let user = await (await User.findById(req.user._id)).select("+password");
+  let user = await User.findById(req.user._id);
   if (!user) {
-    return next(new ErrorHandler("Could not fina a profile!", 404));
+    return next(new ErrorHandler("Could not find a profile!", 404));
   }
 
   res.status(200).json({
