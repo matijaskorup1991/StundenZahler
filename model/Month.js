@@ -15,7 +15,10 @@ const MonthSchema = new mongoose.Schema({
   ],
   hours: [
     {
-      type: Number,
+      hour: {
+        type: Number,
+        required: true,
+      },
     },
   ],
 
