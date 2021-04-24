@@ -3,7 +3,7 @@ const ErrorHandler = require("../utils/error");
 const asyncCall = require("../utils/asyncCall");
 
 const getAllMonths = asyncCall(async (req, res, next) => {
-  let months = await Month.find({ user: req.user._id });
+  let months = await Month.find({ user: req.user._id }).sort({ createdAt: -1 });
   if (months.length < 1) {
     return next(new ErrorHandler("There is nothing to show yet", 404));
   }
