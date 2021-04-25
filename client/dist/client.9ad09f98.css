@@ -11,7 +11,7 @@ html {
 
 .landing-div {
   height: 100vh;
-  background: url("./src/assets/img/pexels-photo-760710.jpg") no-repeat
+  background: url("/pexels-photo-760710.238d8d04.jpg") no-repeat
     center/cover;
   padding-top: 10vh;
 }
@@ -30,3 +30,6 @@ html {
   display: flex;
   justify-content: center;
 }
+
+
+/*# sourceMappingURL=/client.9ad09f98.css.map */
