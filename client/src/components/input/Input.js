@@ -1,11 +1,12 @@
 import React from "react";
+import "./Input.css";
 
 const Input = ({ label, value, type, onChange }) => {
   return (
-    <React.Fragment>
+    <div className='input'>
       <p>{label}</p>
       <input type={type} value={value} onChange={onChange} />
-    </React.Fragment>
+    </div>
   );
 };
 

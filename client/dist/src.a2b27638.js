@@ -36278,7 +36278,12 @@ var Header = function Header() {
 
 var _default = Header;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Header.css":"src/components/header/Header.css"}],"src/components/input/Input.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Header.css":"src/components/header/Header.css"}],"src/components/input/Input.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/input/Input.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36288,6 +36293,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+require("./Input.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Input = function Input(_ref) {
@@ -36295,7 +36302,9 @@ var Input = function Input(_ref) {
       value = _ref.value,
       type = _ref.type,
       onChange = _ref.onChange;
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("p", null, label), /*#__PURE__*/_react.default.createElement("input", {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "input"
+  }, /*#__PURE__*/_react.default.createElement("p", null, label), /*#__PURE__*/_react.default.createElement("input", {
     type: type,
     value: value,
     onChange: onChange
@@ -36304,7 +36313,7 @@ var Input = function Input(_ref) {
 
 var _default = Input;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/pages/Register.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Input.css":"src/components/input/Input.css"}],"src/pages/Register.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36357,22 +36366,25 @@ var Register = function Register() {
 
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "register-page"
-  }, /*#__PURE__*/_react.default.createElement("h2", null, "Register"), /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("form", {
     className: "register-form"
-  }, /*#__PURE__*/_react.default.createElement(_Input.default, {
+  }, /*#__PURE__*/_react.default.createElement("h2", null, "Register"), /*#__PURE__*/_react.default.createElement("article", null, /*#__PURE__*/_react.default.createElement(_Input.default, {
     label: "Username",
     type: "text",
     value: username
-  }), /*#__PURE__*/_react.default.createElement("p", null, "Email"), /*#__PURE__*/_react.default.createElement("input", {
+  }), /*#__PURE__*/_react.default.createElement(_Input.default, {
+    label: "Email",
     type: "email",
     value: email
-  }), /*#__PURE__*/_react.default.createElement("p", null, "Password"), /*#__PURE__*/_react.default.createElement("input", {
+  }), /*#__PURE__*/_react.default.createElement(_Input.default, {
+    label: "Password",
     type: "password",
     value: password
-  }), /*#__PURE__*/_react.default.createElement("p", null, "Repeat Password"), /*#__PURE__*/_react.default.createElement("input", {
+  }), /*#__PURE__*/_react.default.createElement(_Input.default, {
+    label: "Repeat Password",
     type: "password",
     value: password2
-  })));
+  }))));
 };
 
 var _default = Register;
@@ -36470,7 +36482,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61374" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60389" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

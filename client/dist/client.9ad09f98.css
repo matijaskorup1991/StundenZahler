@@ -63,23 +63,5 @@ html {
   font-size: 3rem;
 }
 
-.register-form {
-  border: 1px solid black;
-  width: 60%;
-  margin: 10vh auto 0 auto;
-  text-align: center;
-  padding: 3rem 1rem 4rem 1rem;
-}
-
-.register-page p {
-  font-size: 1.4rem;
-  margin: 1rem;
-}
-
-.register-page input {
-  width: 60%;
-  height: 2rem;
-}
-
 
 /*# sourceMappingURL=/client.9ad09f98.css.map */

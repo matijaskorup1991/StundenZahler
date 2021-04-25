@@ -9,16 +9,15 @@ const Register = () => {
 
   return (
     <div className='register-page'>
-      <h2>Register</h2>
-      <div className='register-form'>
-        <Input label='Username' type='text' value={username} />
-        <p>Email</p>
-        <input type='email' value={email} />
-        <p>Password</p>
-        <input type='password' value={password} />
-        <p>Repeat Password</p>
-        <input type='password' value={password2} />
-      </div>
+      <form className='register-form'>
+        <h2>Register</h2>
+        <article>
+          <Input label='Username' type='text' value={username} />
+          <Input label='Email' type='email' value={email} />
+          <Input label='Password' type='password' value={password} />
+          <Input label='Repeat Password' type='password' value={password2} />
+        </article>
+      </form>
     </div>
   );
 };
