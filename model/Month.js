@@ -10,7 +10,6 @@ const MonthSchema = new mongoose.Schema({
   date: [
     {
       type: String,
-      required: [true, "Datum is required!"],
     },
   ],
   hours: [
