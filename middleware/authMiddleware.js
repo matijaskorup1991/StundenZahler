@@ -1,23 +1,22 @@
-const ErrorHandler = require("../utils/error");
-const jwt = require("jsonwebtoken");
-const User = require("../model/User");
-const asyncCall = require("../utils/asyncCall");
+const ErrorHandler = require('../utils/error');
+const jwt = require('jsonwebtoken');
+const asyncCall = require('../utils/asyncCall');
 
 let protect = asyncCall(async (req, res, next) => {
   let token;
 
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
+    req.headers.authorization.startsWith('Bearer')
   ) {
-    token = req.headers.authorization.split(" ")[1];
+    token = req.headers.authorization.split(' ')[1];
   } else if (req.cookies.token) {
     token = req.cookies.token;
   }
 
   if (!token) {
     return next(
-      new ErrorHandler("You are not authorized to access this route!", 403)
+      new ErrorHandler('You are not authorized to access this route!', 403)
     );
   }
 
