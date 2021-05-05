@@ -24,25 +24,21 @@ function sendTokenResponse(user, statusCode, res) {
 const register = asyncCall(async (req, res, next) => {
   const { username, password, email } = req.body;
 
-  const user;
-
   sendTokenResponse(user, 201, res);
 });
 
 const login = asyncCall(async (req, res, next) => {
   const { email, password } = req.body;
 
-  const user;
+  // if (!user) {
+  //   return next(new ErrorHandler('User does not exist!', 404));
+  // }
 
-  if (!user) {
-    return next(new ErrorHandler('User does not exist!', 404));
-  }
+  // const isMatch;
 
-  const isMatch;
-
-  if (!isMatch) {
-    return next(new ErrorHandler('Wrong password!', 403));
-  }
+  // if (!isMatch) {
+  //   return next(new ErrorHandler('Wrong password!', 403));
+  // }
 
   sendTokenResponse(user, 200, res);
 });

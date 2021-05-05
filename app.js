@@ -1,24 +1,21 @@
-const express = require("express");
-const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
+const express = require('express');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const app = express();
-const { connectDB } = require("./DB/DB");
-const ErrorHandler = require("./utils/error");
+const ErrorHandler = require('./utils/error');
 
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 app.use(cookieParser());
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
 }
 
-connectDB();
-
-app.use("/api/user/", require("./routes/user"));
-app.use("/api/month/", require("./routes/month"));
+app.use('/api/user/', require('./routes/user'));
+app.use('/api/month/', require('./routes/month'));
 app.use((req, res, next) => {
-  return next(new ErrorHandler("Page not found!", 404));
+  return next(new ErrorHandler('Page not found!', 404));
 });
 
 app.use((error, req, res, next) => {
@@ -26,7 +23,7 @@ app.use((error, req, res, next) => {
     return next(error);
   }
   res.status(error.code || 500).json({
-    message: error.message || "Unknown Error!",
+    message: error.message || 'Unknown Error!',
   });
 });
 
