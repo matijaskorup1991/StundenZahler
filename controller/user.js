@@ -3,6 +3,7 @@ const ErrorHandler = require('../utils/error');
 const asyncCall = require('../utils/asyncCall');
 const hashPassword = require('../utils/hashPassword');
 const getJwt = require('../utils/getJwt');
+const matchPassword = require('../utils/matchPassword');
 
 function sendTokenResponse(user, statusCode, res) {
   let token = getJwt(user.rows[0].id);
@@ -40,11 +41,13 @@ const register = asyncCall(async (req, res, next) => {
 const login = asyncCall(async (req, res, next) => {
   const { email, password } = req.body;
 
-  // if (!user) {
-  //   return next(new ErrorHandler('User does not exist!', 404));
-  // }
+  let user = await db.query('select * from users where email =$1', [email]);
 
-  // const isMatch;
+  if (!user) {
+    return next(new ErrorHandler('User does not exist!', 404));
+  }
+
+  let isMatch = await matchPassword(password, user.rows[0].password);
 
   // if (!isMatch) {
   //   return next(new ErrorHandler('Wrong password!', 403));

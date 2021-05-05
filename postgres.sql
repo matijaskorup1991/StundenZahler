@@ -6,5 +6,8 @@ CREATE TABLE users (
 );
 CREATE TABLE months (
     id serial PRIMARY KEY,
-    created_at timestamp with time zone default current_timestamp
+    created_at timestamp with time zone default current_timestamp,
+    day date not null,
+    hour real not null,
+    user_id integer not null references users(id)
 );
