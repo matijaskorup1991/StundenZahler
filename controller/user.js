@@ -24,7 +24,17 @@ function sendTokenResponse(user, statusCode, res) {
 const register = asyncCall(async (req, res, next) => {
   const { username, password, email } = req.body;
 
-  sendTokenResponse(user, 201, res);
+  let user = await db.query(
+    'insert into users (username, password, email) values ($1, $2, $3) returning *',
+    [username, password, email]
+  );
+
+  res.status(201).json({
+    success: true,
+    user,
+  });
+
+  //sendTokenResponse(user, 201, res);
 });
 
 const login = asyncCall(async (req, res, next) => {
