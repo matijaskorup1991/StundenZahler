@@ -1,6 +1,7 @@
 const db = require('../db');
 const ErrorHandler = require('../utils/error');
 const asyncCall = require('../utils/asyncCall');
+const hashPassword = require('../utils/hashPassword');
 
 function sendTokenResponse(user, statusCode, res) {
   let token;
@@ -24,15 +25,17 @@ function sendTokenResponse(user, statusCode, res) {
 const register = asyncCall(async (req, res, next) => {
   const { username, password, email } = req.body;
 
-  let user = await db.query(
-    'insert into users (username, password, email) values ($1, $2, $3) returning *',
-    [username, password, email]
-  );
-
-  res.status(201).json({
-    success: true,
-    user,
-  });
+  let hashedPassword = await hashPassword(password);
+  if (hashedPassword) {
+    let user = await db.query(
+      'insert into users (username, password, email) values ($1, $2, $3) returning *',
+      [username, hashedPassword, email]
+    );
+    res.status(201).json({
+      success: true,
+      user,
+    });
+  }
 
   //sendTokenResponse(user, 201, res);
 });
