@@ -5,7 +5,7 @@ const hashPassword = require('../utils/hashPassword');
 const getJwt = require('../utils/getJwt');
 
 function sendTokenResponse(user, statusCode, res) {
-  let token = getJwt(user.id);
+  let token = getJwt(user.rows[0].id);
   const options = {
     expires: new Date(Date.now() * 24 * 60 * 60 * 10000),
     httpOnly: true,
@@ -18,8 +18,8 @@ function sendTokenResponse(user, statusCode, res) {
   res.status(statusCode).cookie('token', token, options).json({
     sucess: true,
     token,
-    username: user.username,
-    email: user.email,
+    username: user.rows[0].username,
+    email: user.rows[0].email,
   });
 }
 
@@ -32,13 +32,9 @@ const register = asyncCall(async (req, res, next) => {
       'insert into users (username, password, email) values ($1, $2, $3) returning *',
       [username, hashedPassword, email]
     );
-    res.status(201).json({
-      success: true,
-      user: user.rows[0],
-    });
-  }
 
-  //sendTokenResponse(user, 201, res);
+    sendTokenResponse(user, 201, res);
+  }
 });
 
 const login = asyncCall(async (req, res, next) => {
