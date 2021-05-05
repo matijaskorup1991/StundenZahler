@@ -2,9 +2,10 @@ const db = require('../db');
 const ErrorHandler = require('../utils/error');
 const asyncCall = require('../utils/asyncCall');
 const hashPassword = require('../utils/hashPassword');
+const getJwt = require('../utils/getJwt');
 
 function sendTokenResponse(user, statusCode, res) {
-  let token;
+  let token = getJwt(user.id);
   const options = {
     expires: new Date(Date.now() * 24 * 60 * 60 * 10000),
     httpOnly: true,
@@ -33,7 +34,7 @@ const register = asyncCall(async (req, res, next) => {
     );
     res.status(201).json({
       success: true,
-      user,
+      user: user.rows[0],
     });
   }
 

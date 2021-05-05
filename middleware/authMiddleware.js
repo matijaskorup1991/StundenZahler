@@ -1,3 +1,4 @@
+const db = require('../db');
 const ErrorHandler = require('../utils/error');
 const jwt = require('jsonwebtoken');
 const asyncCall = require('../utils/asyncCall');
@@ -23,7 +24,9 @@ let protect = asyncCall(async (req, res, next) => {
   try {
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = await User.findById(decoded._id);
+    req.user = await db.query('select * from users where id=$1', [decoded.id]);
+
+    // await User.findById(decoded._id);
 
     next();
   } catch (error) {
