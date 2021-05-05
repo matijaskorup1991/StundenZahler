@@ -79,7 +79,7 @@ const logout = asyncCall(async (req, res, next) => {
 });
 
 const getMe = asyncCall(async (req, res, next) => {
-  let user;
+  let user = await db.query('select * from users where id=$1', [req.user.id]);
   if (!user) {
     return next(new ErrorHandler('Could not find a profile!', 404));
   }
