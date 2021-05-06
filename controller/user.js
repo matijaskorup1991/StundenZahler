@@ -22,6 +22,7 @@ function sendTokenResponse(user, statusCode, res) {
     sucess: true,
     token,
     username: user.rows[0].username,
+    userId: user.rows[0].id,
     email: user.rows[0].email,
   });
 }
@@ -62,9 +63,9 @@ const login = asyncCall(async (req, res, next) => {
 
   let isMatch = await matchPassword(password, user.rows[0].password);
 
-  // if (!isMatch) {
-  //   return next(new ErrorHandler('Wrong password!', 403));
-  // }
+  if (!isMatch) {
+    return next(new ErrorHandler('Wrong password!', 403));
+  }
 
   sendTokenResponse(user, 200, res);
 });
@@ -108,11 +109,12 @@ const getMe = asyncCall(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    user,
+    user: user.rows[0],
   });
 });
 
 const deleteMyProfile = asyncCall(async (req, res, next) => {
+  await db.query('delete from users where id=$1', [req.params.id]);
   res.status(200).json({
     success: true,
     message: 'Profile deleted successfully',

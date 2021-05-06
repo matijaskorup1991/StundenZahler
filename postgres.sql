@@ -9,5 +9,5 @@ CREATE TABLE months (
     created_at timestamp with time zone default current_timestamp,
     day date not null,
     hour real not null,
-    user_id integer not null references users(id)
+    user_id integer not null references users(id) on delete cascade
 );
