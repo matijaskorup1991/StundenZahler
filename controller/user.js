@@ -5,6 +5,7 @@ const hashPassword = require('../utils/hashPassword');
 const getJwt = require('../utils/getJwt');
 const matchPassword = require('../utils/matchPassword');
 const checkInput = require('../utils/checkInputData');
+const checkEmail = require('../utils/checkEmail');
 
 function sendTokenResponse(user, statusCode, res) {
   let token = getJwt(user.rows[0].id);
@@ -26,12 +27,16 @@ function sendTokenResponse(user, statusCode, res) {
 }
 
 const register = asyncCall(async (req, res, next) => {
-  // const { username, password, email } = req.body;
-  let username = checkData(req.body.username);
-  let password = checkData(req.body.password);
+  let username = checkInput(req.body.username);
+  let password = checkInput(req.body.password);
+  let email = checkEmail(req.body.email);
 
-  if (username && password === false) {
+  if (!username || !password) {
     return next(new ErrorHandler('Please provide all Information!', 401));
+  }
+
+  if (!email) {
+    return next(new ErrorHandler('Wrong Email!', 401));
   }
 
   let hashedPassword = await hashPassword(password);
