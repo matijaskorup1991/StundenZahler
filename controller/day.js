@@ -2,11 +2,11 @@ const db = require('../db');
 const ErrorHandler = require('../utils/error');
 const asyncCall = require('../utils/asyncCall');
 
-const getAllMonths = asyncCall(async (req, res, next) => {
+const getAllDays = asyncCall(async (req, res, next) => {
   let {
     rows,
   } = await db.query(
-    'select * from months where user_id = $1 order by day desc',
+    'select * from days where user_id = $1 order by day desc',
     [req.user.id]
   );
   if (rows.length < 1) {
@@ -20,7 +20,7 @@ const getAllMonths = asyncCall(async (req, res, next) => {
   });
 });
 
-const createMonth = asyncCall(async (req, res, next) => {
+const createDay = asyncCall(async (req, res, next) => {
   let month;
   res.status(201).json({
     success: true,
@@ -28,8 +28,8 @@ const createMonth = asyncCall(async (req, res, next) => {
   });
 });
 
-const getSingleMonth = asyncCall(async (req, res, next) => {
-  let { rows } = await db.query('select * from months where id=$1', [
+const getDay = asyncCall(async (req, res, next) => {
+  let { rows } = await db.query('select * from days where id=$1', [
     req.params.id,
   ]);
   if (!rows[0]) {
@@ -42,7 +42,7 @@ const getSingleMonth = asyncCall(async (req, res, next) => {
   });
 });
 
-const updateMonth = asyncCall(async (req, res, next) => {
+const updateDay = asyncCall(async (req, res, next) => {
   let { newHour, idToUpdate } = req.body;
 
   if (!newHour || !idToUpdate) {
@@ -58,8 +58,8 @@ const updateMonth = asyncCall(async (req, res, next) => {
   });
 });
 
-const deleteMonth = asyncCall(async (req, res, next) => {
-  let month = await db.query('delete from months where id=$1', [req.params.id]);
+const deleteDay = asyncCall(async (req, res, next) => {
+  let month = await db.query('delete from days where id=$1', [req.params.id]);
   if (!req.params.id) {
     return next(new ErrorHandler('File not found!', 404));
   }
@@ -71,9 +71,9 @@ const deleteMonth = asyncCall(async (req, res, next) => {
 });
 
 module.exports = {
-  getAllMonths,
-  getSingleMonth,
-  updateMonth,
-  deleteMonth,
-  createMonth,
+  getAllDays,
+  getDay,
+  updateDay,
+  deleteDay,
+  createDay,
 };

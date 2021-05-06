@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use('/api/user/', require('./routes/user'));
-app.use('/api/month/', require('./routes/month'));
+app.use('/api/month/day/', require('./routes/day'));
 app.use((req, res, next) => {
   return next(new ErrorHandler('Page not found!', 404));
 });
