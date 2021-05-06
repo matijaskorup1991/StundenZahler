@@ -28,6 +28,7 @@ function sendTokenResponse(user, statusCode, res) {
 }
 
 const register = asyncCall(async (req, res, next) => {
+  let user;
   let username = checkInput(req.body.username);
   let password = checkInput(req.body.password);
   let email = checkEmail(req.body.email);
@@ -40,10 +41,17 @@ const register = asyncCall(async (req, res, next) => {
     return next(new ErrorHandler('Wrong Email!', 401));
   }
 
+  user = await db.query('select * from users where email=$1', [email]);
+  console.log(user);
+
+  if (user.rows[0]) {
+    return next(new ErrorHandler('User already exists!', 401));
+  }
+
   let hashedPassword = await hashPassword(password);
 
   if (hashedPassword) {
-    let user = await db.query(
+    user = await db.query(
       'insert into users (username, password, email) values ($1, $2, $3) returning *',
       [username, hashedPassword, email]
     );
