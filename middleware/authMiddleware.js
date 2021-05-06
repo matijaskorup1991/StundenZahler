@@ -23,11 +23,10 @@ let protect = asyncCall(async (req, res, next) => {
 
   try {
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-    console.log(decoded);
-
-    // req.user = await db.query('select * from users where id=$1', [decoded.id]);
-
-    // await User.findById(decoded._id);
+    let { rows } = await db.query('select * from users where id=$1', [
+      decoded.id,
+    ]);
+    req.user = rows[0];
 
     next();
   } catch (error) {

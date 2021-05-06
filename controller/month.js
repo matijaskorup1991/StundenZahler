@@ -3,7 +3,12 @@ const ErrorHandler = require('../utils/error');
 const asyncCall = require('../utils/asyncCall');
 
 const getAllMonths = asyncCall(async (req, res, next) => {
-  let { rows } = await db.query('select * from months order by day desc');
+  let {
+    rows,
+  } = await db.query(
+    'select * from months where user_id = $1 order by day desc',
+    [req.user.id]
+  );
   if (rows.length < 1) {
     return next(new ErrorHandler('There is nothing to show yet', 404));
   }
@@ -24,14 +29,16 @@ const createMonth = asyncCall(async (req, res, next) => {
 });
 
 const getSingleMonth = asyncCall(async (req, res, next) => {
-  let month;
-  if (!month) {
+  let { rows } = await db.query('select * from months where id=$1', [
+    req.params.id,
+  ]);
+  if (!rows[0]) {
     return next(new ErrorHandler('Month not found', 404));
   }
 
   res.status(200).json({
     success: true,
-    month,
+    month: rows[0],
   });
 });
 
