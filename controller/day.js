@@ -54,18 +54,22 @@ const getDay = asyncCall(async (req, res, next) => {
 });
 
 const updateDay = asyncCall(async (req, res, next) => {
-  let { newHour, idToUpdate } = req.body;
+  let { date, hours } = req.body;
 
-  if (!newHour || !idToUpdate) {
-    return next(new ErrorHandler('Please provide a valid data!', 403));
+  if (!date || !hours) {
+    return next(new ErrorHandler('Please provide all Information!', 401));
   }
 
-  let month;
-  let monthIndex;
+  let {
+    rows,
+  } = await db.query(
+    'update days set date=$1, hours=$2 where id=$3 returning *',
+    [date, hours, req.params.id]
+  );
 
   res.status(200).json({
     success: true,
-    month,
+    day: rows[0],
   });
 });
 

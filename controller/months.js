@@ -36,7 +36,17 @@ const createMonth = asyncCall(async (req, res, next) => {
   });
 });
 
+const deleteMonth = asyncCall(async (req, res, next) => {
+  await db.query('remove from months where id=$1', [req.params.id]);
+
+  res.status(200).json({
+    success: true,
+    message: 'File deleted!',
+  });
+});
+
 module.exports = {
   getAllMonths,
   createMonth,
+  deleteMonth,
 };
