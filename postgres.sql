@@ -6,13 +6,13 @@ CREATE TABLE users (
 );
 CREATE TABLE days (
     id serial PRIMARY KEY,
-    created_at timestamp with time zone default current_timestamp,
     day date not null,
     hour real not null,
     user_id integer not null references users(id) on delete cascade
 );
 create table months (
     id serial PRIMARY KEY,
+    created_at timestamp with time zone default current_timestamp,
     data json not null,
     user_id integer not null references users(id) on delete cascade,
 )

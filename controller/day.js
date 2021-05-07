@@ -15,16 +15,27 @@ const getAllDays = asyncCall(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    months: rows,
+    days: rows,
     count: rows.length,
   });
 });
 
 const createDay = asyncCall(async (req, res, next) => {
-  let month;
+  let { date, hours } = req.body;
+
+  if (!date || !hours) {
+    return next(new ErrorHandler('Please provide all Information!', 401));
+  }
+
+  let {
+    rows,
+  } = await db.query(
+    'insert into days (day, hour, user_id) values ($1,$2,$3)',
+    [date, hours, req.user.id]
+  );
   res.status(201).json({
     success: true,
-    month,
+    day: rows[0],
   });
 });
 
