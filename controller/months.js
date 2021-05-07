@@ -17,7 +17,24 @@ const getAllMonths = asyncCall(async (req, res, next) => {
   });
 });
 
-const createMonth = asyncCall(async (req, res, next) => {});
+const createMonth = asyncCall(async (req, res, next) => {
+  let { data } = req.body;
+  if (!data || data.length < 1) {
+    return next(new ErrorHandler('Please provide all information', 406));
+  }
+
+  let {
+    rows,
+  } = await db.query('insert into months (data, user_id) values ($1,$2)', [
+    JSON.stringify(data),
+    req.user.id,
+  ]);
+
+  res.status(201).json({
+    success: true,
+    data: rows[0],
+  });
+});
 
 module.exports = {
   getAllMonths,
