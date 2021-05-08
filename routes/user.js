@@ -1,6 +1,6 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { protect } = require("../middleware/authMiddleware");
+const { protect } = require('../middleware/authMiddleware');
 const {
   register,
   login,
@@ -8,12 +8,12 @@ const {
   deleteMyProfile,
   getMe,
   updateProfile,
-} = require("../controller/user");
+} = require('../controller/user');
 
-router.route("/register").post(register);
-router.route("/login").post(login);
-router.route("/logout").get(logout);
-router.route("/me").get(protect, getMe).patch(protect, updateProfile);
-router.route("/deleteProfile/:id").delete(protect, deleteMyProfile);
+router.route('/register').post(register);
+router.route('/login').post(login);
+router.route('/logout').get(logout);
+router.route('/me').get(protect, getMe).put(protect, updateProfile);
+router.route('/deleteProfile/:id').delete(protect, deleteMyProfile);
 
 module.exports = router;

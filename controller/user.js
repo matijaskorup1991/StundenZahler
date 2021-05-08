@@ -98,10 +98,11 @@ const updateProfile = asyncCall(async (req, res, next) => {
   }
 
   let hashedPassword = await hashPassword(newPassword);
-  let updatedUser = await db.query(
-    'update users set password=$1 where email = $2 returning *',
-    [hashedPassword, email]
-  );
+
+  await db.query('update users set password=$1 where email = $2', [
+    hashedPassword,
+    email,
+  ]);
 
   res.status(200).json({ success: true, message: 'Password updated' });
 });
