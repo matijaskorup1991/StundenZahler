@@ -79,12 +79,29 @@ const login = asyncCall(async (req, res, next) => {
 });
 
 const updateProfile = asyncCall(async (req, res, next) => {
-  let { oldPassword, newPassword } = req.body;
-  let user;
+  let { email, oldPassword, newPassword } = req.body;
 
-  if (!oldPassword || !newPassword) {
+  if (!oldPassword || !newPassword || !email) {
     return next(new ErrorHandler('Please provide all Information!', 401));
   }
+
+  let { rows } = await db.query('select * from users where email=$1', [email]);
+
+  if (!rows || rows.length < 1) {
+    return next(new ErrorHandler('User does not exist!', 404));
+  }
+
+  let isMatch = await matchPassword(oldPassword, rows[0].password);
+
+  if (!isMatch) {
+    return next(new ErrorHandler('Wrong password!', 403));
+  }
+
+  let hashedPassword = await hashPassword(newPassword);
+  let updatedUser = await db.query(
+    'update users set password=$1 where email = $2 returning *',
+    [hashedPassword, email]
+  );
 
   res.status(200).json({ success: true, message: 'Password updated' });
 });
