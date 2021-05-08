@@ -86,14 +86,6 @@ const updateProfile = asyncCall(async (req, res, next) => {
     return next(new ErrorHandler('Please provide all Information!', 401));
   }
 
-  const isMatch = await user.comparePassword(oldPassword);
-
-  if (!isMatch) {
-    return next(new ErrorHandler('Wrong Password!', 403));
-  }
-
-  user.password = newPassword;
-
   res.status(200).json({ success: true, message: 'Password updated' });
 });
 

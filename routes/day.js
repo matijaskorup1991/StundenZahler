@@ -14,6 +14,6 @@ router
   .route('/:id')
   .delete(protect, deleteDay)
   .get(protect, getDay)
-  .patch(protect, updateDay);
+  .put(protect, updateDay);
 
 module.exports = router;
