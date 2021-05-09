@@ -28,10 +28,10 @@ function sendTokenResponse(user, statusCode, res) {
 }
 
 const register = asyncCall(async (req, res, next) => {
-  let user;
-  let username = checkInput(req.body.username);
-  let password = checkInput(req.body.password);
-  let email = checkEmail(req.body.email);
+  let user,
+    username = checkInput(req.body.username),
+    password = checkInput(req.body.password),
+    email = checkEmail(req.body.email);
 
   if (!username || !password) {
     return next(new ErrorHandler('Please provide all Information!', 401));

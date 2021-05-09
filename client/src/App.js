@@ -1,18 +1,16 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import Landing from "./pages/Landing";
-import HomePage from "./pages/HomePage";
-import Header from "./components/header/Header";
-import Register from "./pages/Register";
+import Landing from './pages/Landing';
+import HomePage from './pages/HomePage';
+import Register from './pages/Register';
 
 const App = () => {
   const userLogin = useSelector((state) => state.userReducer);
   const { user } = userLogin;
   return (
     <BrowserRouter>
-      {user && <Header />}
       <Switch>
         <Route exact path='/' component={Landing} />
         <Route exact path='/home' component={HomePage} />
