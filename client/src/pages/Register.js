@@ -1,4 +1,5 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { register } from '../redux/actions/user';
 
 const Register = () => {
@@ -11,7 +12,7 @@ const Register = () => {
 
   const registerUser = (e) => {
     e.preventDefault();
-    dispatch(register(username, email, password));
+    console.log(dispatch(register(username, email, password)));
   };
 
   return (
@@ -19,27 +20,32 @@ const Register = () => {
       <form onSubmit={registerUser}>
         <input
           type='text'
+          placeholder='Username'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type='email'
           name='email'
+          placeholder='Email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type='password'
+          placeholder='Password'
           name='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type='password'
+          placeholder='Password2'
           name='password2'
           value={password2}
           onChange={(e) => setPassword2(e.target.value)}
         />
+        <input type='submit' value='submit' />
       </form>
     </div>
   );

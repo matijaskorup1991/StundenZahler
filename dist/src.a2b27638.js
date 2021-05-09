@@ -33120,15 +33120,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.LOGOUT = exports.LOGIN = exports.REGISTER = exports.FAILURE = exports.SUCCESS = void 0;
-var SUCCESS = 'SUCCESS';
+const SUCCESS = 'SUCCESS';
 exports.SUCCESS = SUCCESS;
-var FAILURE = 'FAILURE';
+const FAILURE = 'FAILURE';
 exports.FAILURE = FAILURE;
-var REGISTER = 'REGISTER';
+const REGISTER = 'REGISTER';
 exports.REGISTER = REGISTER;
-var LOGIN = 'LOGIN';
+const LOGIN = 'LOGIN';
 exports.LOGIN = LOGIN;
-var LOGOUT = 'LOGOUT';
+const LOGOUT = 'LOGOUT';
 exports.LOGOUT = LOGOUT;
 },{}],"src/redux/reducers/userReducer.js":[function(require,module,exports) {
 "use strict";
@@ -33140,14 +33140,14 @@ exports.default = void 0;
 
 var _actionTypes = require("../actionTypes");
 
-var initialState = {
+const initialState = {
   user: null,
   error: null
 };
 
-var reducer = function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
+const reducer = function reducer() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case _actionTypes.REGISTER:
@@ -33186,12 +33186,12 @@ var _userReducer = _interopRequireDefault(require("./reducers/userReducer"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var initialState = {};
-var middleware = [_reduxThunk.default];
-var reducer = (0, _redux.combineReducers)({
+const initialState = {};
+const middleware = [_reduxThunk.default];
+const reducer = (0, _redux.combineReducers)({
   userReducer: _userReducer.default
 });
-var store = (0, _redux.createStore)(reducer, initialState, (0, _reduxDevtoolsExtension.composeWithDevTools)(_redux.applyMiddleware.apply(void 0, middleware)));
+const store = (0, _redux.createStore)(reducer, initialState, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(...middleware)));
 var _default = store;
 exports.default = _default;
 },{"redux":"node_modules/redux/es/redux.js","redux-thunk":"node_modules/redux-thunk/es/index.js","redux-devtools-extension":"node_modules/redux-devtools-extension/index.js","./reducers/userReducer":"src/redux/reducers/userReducer.js"}],"node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":[function(require,module,exports) {
@@ -36186,7 +36186,7 @@ var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Landing = function Landing() {
+const Landing = () => {
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "landing-div"
   }, /*#__PURE__*/_react.default.createElement("h1", null, "Landing"));
@@ -36206,7 +36206,7 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var HomePage = function HomePage() {
+const HomePage = () => {
   return /*#__PURE__*/_react.default.createElement("div", null, "HomePage");
 };
 
@@ -38012,73 +38012,84 @@ module.exports.default = axios;
 
 },{"./utils":"node_modules/axios/lib/utils.js","./helpers/bind":"node_modules/axios/lib/helpers/bind.js","./core/Axios":"node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"node_modules/axios/lib/core/mergeConfig.js","./defaults":"node_modules/axios/lib/defaults.js","./cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"node_modules/axios/lib/helpers/spread.js","./helpers/isAxiosError":"node_modules/axios/lib/helpers/isAxiosError.js"}],"node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/redux/actions/user.js":[function(require,module,exports) {
+},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/utils/axios.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.register = void 0;
+exports.default = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const config = _axios.default.create({
+  baseURL: 'http://localhost:5000'
+});
+
+var _default = config;
+exports.default = _default;
+},{"axios":"node_modules/axios/index.js"}],"src/redux/actions/user.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.login = exports.register = void 0;
+
+var _axios = _interopRequireDefault(require("../../utils/axios"));
 
 var _actionTypes = require("../actionTypes");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-var register = function register(name, email, password) {
-  return /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var data;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return _axios.default.post('/api/user/', {
-                name: name,
-                email: email,
-                password: password
-              });
-
-            case 3:
-              data = _context.sent;
-              dispatch({
-                type: _actionTypes.REGISTER,
-                payload: data
-              });
-              _context.next = 11;
-              break;
-
-            case 7:
-              _context.prev = 7;
-              _context.t0 = _context["catch"](0);
-              console.log(_context.t0);
-              dispatch({
-                type: _actionTypes.FAILURE
-              });
-
-            case 11:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[0, 7]]);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
+const register = (username, email, password) => async dispatch => {
+  try {
+    let {
+      data
+    } = await _axios.default.post('/api/user/register', {
+      username,
+      email,
+      password
+    });
+    console.log(data);
+    dispatch({
+      type: _actionTypes.REGISTER,
+      payload: data
+    });
+  } catch (error) {
+    console.log(error.response.data.message);
+    dispatch({
+      type: _actionTypes.FAILURE
+    });
+  }
 };
 
 exports.register = register;
-},{"axios":"node_modules/axios/index.js","../actionTypes":"src/redux/actionTypes.js"}],"src/pages/Register.js":[function(require,module,exports) {
+
+const login = (email, password) => async dispatch => {
+  try {
+    let {
+      data
+    } = await _axios.default.post('/api/user/login', {
+      email,
+      password
+    });
+    dispatch({
+      type: _actionTypes.LOGIN,
+      payload: data
+    });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: _actionTypes.FAILURE
+    });
+  }
+};
+
+exports.login = login;
+},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"src/pages/Register.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38088,50 +38099,24 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _reactRedux = require("react-redux");
+
 var _user = require("../redux/actions/user");
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+const Register = () => {
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const [username, setUsername] = (0, _react.useState)('');
+  const [email, setEmail] = (0, _react.useState)('');
+  const [password, setPassword] = (0, _react.useState)('');
+  const [password2, setPassword2] = (0, _react.useState)('');
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var Register = function Register() {
-  var dispatch = useDispatch();
-
-  var _useState = (0, _react.useState)(''),
-      _useState2 = _slicedToArray(_useState, 2),
-      username = _useState2[0],
-      setUsername = _useState2[1];
-
-  var _useState3 = (0, _react.useState)(''),
-      _useState4 = _slicedToArray(_useState3, 2),
-      email = _useState4[0],
-      setEmail = _useState4[1];
-
-  var _useState5 = (0, _react.useState)(''),
-      _useState6 = _slicedToArray(_useState5, 2),
-      password = _useState6[0],
-      setPassword = _useState6[1];
-
-  var _useState7 = (0, _react.useState)(''),
-      _useState8 = _slicedToArray(_useState7, 2),
-      password2 = _useState8[0],
-      setPassword2 = _useState8[1];
-
-  var registerUser = function registerUser(e) {
+  const registerUser = e => {
     e.preventDefault();
-    dispatch((0, _user.register)(username, email, password));
+    console.log(dispatch((0, _user.register)(username, email, password)));
   };
 
   return /*#__PURE__*/_react.default.createElement("div", {
@@ -38140,37 +38125,36 @@ var Register = function Register() {
     onSubmit: registerUser
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
+    placeholder: "Username",
     value: username,
-    onChange: function onChange(e) {
-      return setUsername(e.target.value);
-    }
+    onChange: e => setUsername(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "email",
     name: "email",
+    placeholder: "Email",
     value: email,
-    onChange: function onChange(e) {
-      return setEmail(e.target.value);
-    }
+    onChange: e => setEmail(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "password",
+    placeholder: "Password",
     name: "password",
     value: password,
-    onChange: function onChange(e) {
-      return setPassword(e.target.value);
-    }
+    onChange: e => setPassword(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "password",
+    placeholder: "Password2",
     name: "password2",
     value: password2,
-    onChange: function onChange(e) {
-      return setPassword2(e.target.value);
-    }
+    onChange: e => setPassword2(e.target.value)
+  }), /*#__PURE__*/_react.default.createElement("input", {
+    type: "submit",
+    value: "submit"
   })));
 };
 
 var _default = Register;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../redux/actions/user":"src/redux/actions/user.js"}],"src/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38192,11 +38176,11 @@ var _Register = _interopRequireDefault(require("./pages/Register"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var App = function App() {
-  var userLogin = (0, _reactRedux.useSelector)(function (state) {
-    return state.userReducer;
-  });
-  var user = userLogin.user;
+const App = () => {
+  const userLogin = (0, _reactRedux.useSelector)(state => state.userReducer);
+  const {
+    user
+  } = userLogin;
   return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/",
@@ -38261,7 +38245,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58119" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56207" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
