@@ -18,3 +18,16 @@ export const getAllMonths = () => async (dispatch) => {
     dispatch({ type: FAILURE });
   }
 };
+
+export const getMonth = (id) => async (dispatch) => {
+  try {
+    let { data } = axios.get(`/api/month/${id}`);
+    dispatch({
+      type: GET_MONTH,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({ type: FAILURE });
+  }
+};

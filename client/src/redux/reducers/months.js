@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   months: null,
+  month: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         months: action.payload,
+      };
+    case GET_MONTH:
+      return {
+        ...state,
+        month: action.payload,
       };
     case FAILURE:
       return {
