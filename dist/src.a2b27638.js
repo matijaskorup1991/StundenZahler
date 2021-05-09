@@ -33119,7 +33119,7 @@ exports.devToolsEnhancer =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LOGOUT = exports.LOGIN = exports.REGISTER = exports.FAILURE = exports.SUCCESS = void 0;
+exports.UPDATE_DAY = exports.DELETE_DAY = exports.CREATE_DAY = exports.GET_ALL_DAYS = exports.DELETE_PROFILE = exports.LOGOUT = exports.LOGIN = exports.REGISTER = exports.FAILURE = exports.SUCCESS = void 0;
 const SUCCESS = 'SUCCESS';
 exports.SUCCESS = SUCCESS;
 const FAILURE = 'FAILURE';
@@ -33130,6 +33130,16 @@ const LOGIN = 'LOGIN';
 exports.LOGIN = LOGIN;
 const LOGOUT = 'LOGOUT';
 exports.LOGOUT = LOGOUT;
+const DELETE_PROFILE = 'DELETE_PROFILE';
+exports.DELETE_PROFILE = DELETE_PROFILE;
+const GET_ALL_DAYS = 'GET_ALL_DAYS';
+exports.GET_ALL_DAYS = GET_ALL_DAYS;
+const CREATE_DAY = 'CREATE_DAY';
+exports.CREATE_DAY = CREATE_DAY;
+const DELETE_DAY = 'DELETE_DAY';
+exports.DELETE_DAY = DELETE_DAY;
+const UPDATE_DAY = 'UPDATE_DAY';
+exports.UPDATE_DAY = UPDATE_DAY;
 },{}],"src/redux/reducers/userReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -33139,6 +33149,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _actionTypes = require("../actionTypes");
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const initialState = {
   user: null,
@@ -33151,9 +33167,15 @@ const reducer = function reducer() {
 
   switch (action.type) {
     case _actionTypes.REGISTER:
-      return {
+    case _actionTypes.LOGIN:
+      return _objectSpread(_objectSpread({}, state), {}, {
         user: action.payload
-      };
+      });
+
+    case _actionTypes.LOGOUT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        user: null
+      });
 
     case _actionTypes.FAILURE:
       return {
@@ -38036,7 +38058,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.login = exports.register = void 0;
+exports.deleteProfile = exports.logout = exports.login = exports.register = void 0;
 
 var _axios = _interopRequireDefault(require("../../utils/axios"));
 
@@ -38058,6 +38080,7 @@ const register = (username, email, password) => async dispatch => {
       type: _actionTypes.REGISTER,
       payload: data
     });
+    sessionStorage.setItem('user', JSON.stringify(data));
   } catch (error) {
     console.log(error.response.data.message);
     dispatch({
@@ -38080,6 +38103,7 @@ const login = (email, password) => async dispatch => {
       type: _actionTypes.LOGIN,
       payload: data
     });
+    sessionStorage.setItem('user', JSON.stringify(data));
   } catch (error) {
     console.log(error.response);
     dispatch({
@@ -38089,6 +38113,42 @@ const login = (email, password) => async dispatch => {
 };
 
 exports.login = login;
+
+const logout = () => async dispatch => {
+  try {
+    let data = await _axios.default.get('/logout');
+    dispatch({
+      type: LOGOUT,
+      payload: data
+    });
+    sessionStorage.removeItem('user');
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: _actionTypes.FAILURE
+    });
+  }
+};
+
+exports.logout = logout;
+
+const deleteProfile = id => async dispatch => {
+  try {
+    let data = await _axios.default.delete("/deleteProfile/".concat(id));
+    dispatch({
+      type: _actionTypes.DELETE_PROFILE,
+      payload: data
+    });
+    sessionStorage.removeItem('user');
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: _actionTypes.FAILURE
+    });
+  }
+};
+
+exports.deleteProfile = deleteProfile;
 },{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"src/pages/Register.js":[function(require,module,exports) {
 "use strict";
 
@@ -38154,6 +38214,56 @@ const Register = () => {
 
 var _default = Register;
 exports.default = _default;
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js"}],"src/pages/Login.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _user = require("../redux/actions/user");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Login = () => {
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const [email, setEmail] = (0, _react.useState)('');
+  const [password, setPassword] = (0, _react.useState)('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch((0, _user.login)(email, password));
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "email",
+    name: "email",
+    placeholder: "Email",
+    value: email,
+    onChange: e => setEmail(e.target.value)
+  }), /*#__PURE__*/_react.default.createElement("input", {
+    type: "password",
+    placeholder: "Password",
+    name: "password",
+    value: password,
+    onChange: e => setPassword(e.target.value)
+  }), /*#__PURE__*/_react.default.createElement("input", {
+    type: "submit",
+    value: "submit"
+  })));
+};
+
+var _default = Login;
+exports.default = _default;
 },{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -38162,7 +38272,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -38174,7 +38284,13 @@ var _HomePage = _interopRequireDefault(require("./pages/HomePage"));
 
 var _Register = _interopRequireDefault(require("./pages/Register"));
 
+var _Login = _interopRequireDefault(require("./pages/Login"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const App = () => {
   const userLogin = (0, _reactRedux.useSelector)(state => state.userReducer);
@@ -38193,12 +38309,16 @@ const App = () => {
     exact: true,
     path: "/register",
     component: _Register.default
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    exact: true,
+    path: "/login",
+    component: _Login.default
   })));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","./pages/Landing":"src/pages/Landing.js","./pages/HomePage":"src/pages/HomePage.js","./pages/Register":"src/pages/Register.js"}],"src/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","./pages/Landing":"src/pages/Landing.js","./pages/HomePage":"src/pages/HomePage.js","./pages/Register":"src/pages/Register.js","./pages/Login":"src/pages/Login.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -38213,10 +38333,9 @@ var _App = _interopRequireDefault(require("./App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import "normalize.css";
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
-}, /*#__PURE__*/_react.default.createElement(_App.default, null)), document.getElementById("root"));
+}, /*#__PURE__*/_react.default.createElement(_App.default, null)), document.getElementById('root'));
 },{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-redux":"node_modules/react-redux/es/index.js","./redux/store":"src/redux/store.js","./App":"src/App.js"}],"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -38245,7 +38364,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56207" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59814" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

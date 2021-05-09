@@ -1,4 +1,4 @@
-import { REGISTER, FAILURE } from '../actionTypes';
+import { REGISTER, FAILURE, LOGIN, LOGOUT } from '../actionTypes';
 
 const initialState = {
   user: null,
@@ -8,8 +8,16 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER:
+    case LOGIN:
       return {
+        ...state,
         user: action.payload,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
       };
 
     case FAILURE:
