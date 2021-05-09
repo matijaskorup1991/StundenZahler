@@ -38233,7 +38233,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
 }, /*#__PURE__*/_react.default.createElement(_App.default, null)), document.getElementById("root"));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-redux":"node_modules/react-redux/es/index.js","./redux/store":"src/redux/store.js","./App":"src/App.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-redux":"node_modules/react-redux/es/index.js","./redux/store":"src/redux/store.js","./App":"src/App.js"}],"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -38261,7 +38261,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53537" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58005" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -38437,5 +38437,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
+},{}]},{},["../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
 //# sourceMappingURL=/src.a2b27638.js.map
