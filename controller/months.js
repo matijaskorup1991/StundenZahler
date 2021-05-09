@@ -17,6 +17,20 @@ const getAllMonths = asyncCall(async (req, res, next) => {
   });
 });
 
+const getMonth = asyncCall(async (req, res, next) => {
+  let { rows } = await db.query('select * from months where id=$1', [
+    req.params.id,
+  ]);
+
+  if (!rows[0]) {
+    return next(new ErrorResponse('Something went wrong!', 404));
+  }
+  res.status(200).json({
+    success: true,
+    data: rows[0],
+  });
+});
+
 const createMonth = asyncCall(async (req, res, next) => {
   let { data } = req.body;
   if (!data || data.length < 1) {
@@ -49,4 +63,5 @@ module.exports = {
   getAllMonths,
   createMonth,
   deleteMonth,
+  getMonth,
 };

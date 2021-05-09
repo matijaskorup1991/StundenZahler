@@ -10,3 +10,7 @@ export const GET_ALL_DAYS = 'GET_ALL_DAYS';
 export const CREATE_DAY = 'CREATE_DAY';
 export const DELETE_DAY = 'DELETE_DAY';
 export const UPDATE_DAY = 'UPDATE_DAY';
+
+export const GET_ALL_MONTHS = 'GET_ALL_MONTHS';
+export const GET_MONTH = 'GET_MONTH';
+export const DELETE_MONTH = 'DELETE_MONTH';

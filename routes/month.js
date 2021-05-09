@@ -8,6 +8,6 @@ const {
 } = require('../controller/months');
 
 router.route('/').get(protect, getAllMonths).post(protect, createMonth);
-router.route('/:id').delete(protect, deleteMonth);
+router.route('/:id').get(protect, getMonth).delete(protect, deleteMonth);
 
 module.exports = router;

@@ -1,20 +1,25 @@
 import {
-  GET_ALL_DAYS,
-  CREATE_DAY,
-  UPDATE_DAY,
-  DELETE_DAY,
+  GET_ALL_MONTHS,
+  GET_MONTH,
+  DELETE_MONTH,
+  FAILURE,
 } from '../actionTypes';
 
 const initialState = {
-  days: null,
+  months: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_DAYS:
+    case GET_ALL_MONTHS:
       return {
         ...state,
-        days: action.payload,
+        months: action.payload,
+      };
+    case FAILURE:
+      return {
+        ...state,
+        months: null,
       };
     default:
       return state;
