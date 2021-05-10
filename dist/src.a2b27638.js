@@ -38623,7 +38623,40 @@ const Month = () => {
 
 var _default = Month;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../redux/actions/months":"src/redux/actions/months.js"}],"src/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../redux/actions/months":"src/redux/actions/months.js"}],"src/styles/header.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/Header.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _reactRouterDom = require("react-router-dom");
+
+require("../styles/header.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Header = () => {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "header"
+  }, /*#__PURE__*/_react.default.createElement("h2", null, "Username"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/months"
+  }, "My Months"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, null, "Add Work Day"), /*#__PURE__*/_react.default.createElement("div", null, "Logout")));
+};
+
+var _default = Header;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../styles/header.scss":"src/styles/header.scss"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38649,6 +38682,8 @@ var _Months = _interopRequireDefault(require("./pages/Months"));
 
 var _Month = _interopRequireDefault(require("./pages/Month"));
 
+var _Header = _interopRequireDefault(require("./components/Header"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -38660,7 +38695,7 @@ const App = () => {
   const {
     user
   } = userLogin;
-  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_Header.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/",
     component: _Landing.default
@@ -38689,7 +38724,7 @@ const App = () => {
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","./pages/Landing":"src/pages/Landing.js","./pages/HomePage":"src/pages/HomePage.js","./pages/Register":"src/pages/Register.js","./pages/Login":"src/pages/Login.js","./pages/Months":"src/pages/Months.js","./pages/Month":"src/pages/Month.js"}],"src/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","./pages/Landing":"src/pages/Landing.js","./pages/HomePage":"src/pages/HomePage.js","./pages/Register":"src/pages/Register.js","./pages/Login":"src/pages/Login.js","./pages/Months":"src/pages/Months.js","./pages/Month":"src/pages/Month.js","./components/Header":"src/components/Header.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -38735,7 +38770,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60760" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51840" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -8,12 +8,14 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Months from './pages/Months';
 import Month from './pages/Month';
+import Header from './components/Header';
 
 const App = () => {
   const userLogin = useSelector((state) => state.userReducer);
   const { user } = userLogin;
   return (
     <BrowserRouter>
+      <Header />
       <Switch>
         <Route exact path='/' component={Landing} />
         <Route exact path='/home' component={HomePage} />
