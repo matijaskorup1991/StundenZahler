@@ -15,7 +15,7 @@ const App = () => {
   const { user } = userLogin;
   return (
     <BrowserRouter>
-      <Header />
+      {user && <Header />}
       <Switch>
         <Route exact path='/' component={Landing} />
         <Route exact path='/home' component={HomePage} />

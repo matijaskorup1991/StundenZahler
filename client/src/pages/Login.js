@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions/user';
+import Form from '../components/Form';
 
-const Login = () => {
+const Login = ({ history }) => {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -11,10 +12,11 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
+    history.push('/home');
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <input
           type='email'
           name='email'
@@ -29,8 +31,8 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type='submit' value='submit' />
-      </form>
+        <input className='form-submit' type='submit' value='submit' />
+      </Form>
     </div>
   );
 };

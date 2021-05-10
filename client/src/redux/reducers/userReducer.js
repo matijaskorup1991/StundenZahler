@@ -3,6 +3,7 @@ import { REGISTER, FAILURE, LOGIN, LOGOUT } from '../actionTypes';
 const initialState = {
   user: null,
   error: null,
+  message: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +19,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+        message: action.payload,
       };
 
     case FAILURE:
