@@ -5,7 +5,7 @@ import { register } from '../redux/actions/user';
 import Form from '../components/Form';
 import '../styles/register.scss';
 
-const Register = () => {
+const Register = ({ history }) => {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState('');
@@ -15,7 +15,7 @@ const Register = () => {
 
   const registerUser = (e) => {
     e.preventDefault();
-    console.log(dispatch(register(username, email, password)));
+    dispatch(register(username, email, password, history));
   };
 
   return (

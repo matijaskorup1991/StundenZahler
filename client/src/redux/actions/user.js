@@ -1,7 +1,15 @@
 import axios from '../../utils/axios';
-import { REGISTER, LOGIN, FAILURE, DELETE_PROFILE } from '../actionTypes';
+import {
+  REGISTER,
+  LOGIN,
+  LOGOUT,
+  FAILURE,
+  DELETE_PROFILE,
+} from '../actionTypes';
 
-export const register = (username, email, password) => async (dispatch) => {
+export const register = (username, email, password, history) => async (
+  dispatch
+) => {
   try {
     let { data } = await axios.post('/api/user/register', {
       username,
@@ -14,6 +22,7 @@ export const register = (username, email, password) => async (dispatch) => {
       payload: data,
     });
     sessionStorage.setItem('user', JSON.stringify(data));
+    history.push('/home');
   } catch (error) {
     console.log(error.response.data.message);
     dispatch({
@@ -22,7 +31,7 @@ export const register = (username, email, password) => async (dispatch) => {
   }
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, history) => async (dispatch) => {
   try {
     let { data } = await axios.post('/api/user/login', { email, password });
     dispatch({
@@ -30,6 +39,7 @@ export const login = (email, password) => async (dispatch) => {
       payload: data,
     });
     sessionStorage.setItem('user', JSON.stringify(data));
+    history.push('/home');
   } catch (error) {
     console.log(error.response);
     dispatch({ type: FAILURE });
@@ -38,11 +48,13 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    let data = await axios.get('/logout');
+    sessionStorage.clear();
+
+    let { data } = await axios.get('/api/user/logout');
+
     dispatch({ type: LOGOUT, payload: data });
-    sessionStorage.removeItem('user');
   } catch (error) {
-    console.log(error.response);
+    console.log(error);
     dispatch({ type: FAILURE });
   }
 };

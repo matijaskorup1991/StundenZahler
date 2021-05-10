@@ -13,13 +13,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        message: null,
       };
 
     case LOGOUT:
       return {
         ...state,
         user: null,
-        message: action.payload,
+        message: action.payload.message,
       };
 
     case FAILURE:

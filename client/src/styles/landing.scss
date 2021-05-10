@@ -1,0 +1,31 @@
+.landing-div {
+  height: 100vh;
+  h1 {
+    padding-top: 25vh;
+    text-align: center;
+    font-size: 4rem;
+  }
+  div {
+    margin-top: 5vh;
+    text-align: center;
+    a {
+      display: inline-block;
+      font-size: 2rem;
+      padding: 10px;
+      border: 2px solid black;
+      width: 150px;
+      color: black;
+      transition: all 0.3s linear;
+    }
+    a:nth-of-type(1) {
+      margin-right: 15px;
+    }
+    a:nth-of-type(2) {
+      margin-left: 15px;
+    }
+    a:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}

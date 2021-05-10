@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions/user';
+import { Link } from 'react-router-dom';
 import Form from '../components/Form';
 
 const Login = ({ history }) => {
@@ -11,15 +12,15 @@ const Login = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
-    history.push('/home');
+    dispatch(login(email, password, history));
   };
   return (
-    <div>
-      <Form onSubmit={handleSubmit}>
+    <div className='register-page'>
+      <Form formHeading='LOGIN' onSubmit={handleSubmit}>
         <input
           type='email'
           name='email'
+          required
           placeholder='Email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -27,11 +28,18 @@ const Login = ({ history }) => {
         <input
           type='password'
           placeholder='Password'
+          required
           name='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input className='form-submit' type='submit' value='submit' />
+        <input className='form-submit' type='submit' value='SUBMIT' />
+        <p>
+          Don't have an Account?
+          <span>
+            <Link to='/register'> Register here</Link>
+          </span>
+        </p>
       </Form>
     </div>
   );

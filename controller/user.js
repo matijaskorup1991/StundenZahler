@@ -108,10 +108,17 @@ const updateProfile = asyncCall(async (req, res, next) => {
 });
 
 const logout = asyncCall(async (req, res, next) => {
-  res.cookie('token', 'none', {
-    expires: new Date(Date.now() + 10 * 100),
+  // res.cookie('token', 'none', {
+  //   expires: new Date(Date.now() + 10 * 100),
+  //   httpOnly: true,
+  // });
+
+  res.cookie('token', '', {
     httpOnly: true,
+    secure: true,
+    maxAge: 1,
   });
+  res.clearCookie('token');
 
   res.status(200).json({
     success: true,

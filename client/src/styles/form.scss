@@ -1,6 +1,6 @@
 .register-login-form {
-  width: 50vw;
-  min-height: 60vh;
+  width: 45vw;
+  min-height: 65vh;
   margin: 0 auto;
   background-color: whitesmoke;
   border-radius: 8px;
@@ -10,12 +10,12 @@
   justify-content: space-between;
   align-items: center;
   input {
-    width: 90%;
+    width: 70%;
     padding: 15px;
     font-size: 1.3rem;
     border: 2px solid grey;
     opacity: 0.5;
-    transition: all 0.3s linear;
+    transition: all 0.2s linear;
     border-radius: 8px;
   }
   span {
@@ -39,7 +39,7 @@
   border: 2px solid black;
 }
 
-@media (min-width: 1000px) {
+@media (max-width: 1000px) {
   .register-login-form {
     width: 65vw;
   }

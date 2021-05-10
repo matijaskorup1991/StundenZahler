@@ -1,5 +1,6 @@
 .header {
-  background-color: aqua;
+  background-color: white;
+  border-top: 2px solid black;
   padding: 20px;
   display: flex;
   justify-content: space-between;
@@ -12,6 +13,7 @@
       text-decoration: none;
       color: black;
       font-size: 1rem;
+      width: 100%;
     }
     div {
       cursor: pointer;

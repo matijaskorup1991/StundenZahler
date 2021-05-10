@@ -33164,7 +33164,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 const initialState = {
   user: null,
-  error: null
+  error: null,
+  message: null
 };
 
 const reducer = function reducer() {
@@ -33175,12 +33176,14 @@ const reducer = function reducer() {
     case _actionTypes.REGISTER:
     case _actionTypes.LOGIN:
       return _objectSpread(_objectSpread({}, state), {}, {
-        user: action.payload
+        user: action.payload,
+        message: null
       });
 
     case _actionTypes.LOGOUT:
       return _objectSpread(_objectSpread({}, state), {}, {
-        user: null
+        user: null,
+        message: action.payload.message
       });
 
     case _actionTypes.FAILURE:
@@ -33303,7 +33306,12 @@ var _months = _interopRequireDefault(require("./reducers/months"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const initialState = {};
+const userDataFromStorage = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : null;
+const initialState = {
+  userReducer: {
+    user: userDataFromStorage
+  }
+};
 const middleware = [_reduxThunk.default];
 const reducer = (0, _redux.combineReducers)({
   userReducer: _userReducer.default,
@@ -36291,7 +36299,121 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"react-router":"node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"node_modules/react/index.js","history":"node_modules/history/esm/history.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"src/pages/Landing.js":[function(require,module,exports) {
+},{"react-router":"node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"node_modules/react/index.js","history":"node_modules/history/esm/history.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"src/utils/PrivateRoute.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.PrivateRoute = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _reactRedux = require("react-redux");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+const PrivateRoute = _ref => {
+  let {
+    component: Component
+  } = _ref,
+      rest = _objectWithoutProperties(_ref, ["component"]);
+
+  const userData = (0, _reactRedux.useSelector)(state => state.userReducer);
+  const {
+    user
+  } = userData;
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
+    render: props => !user ? /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
+      to: "/register"
+    }) : /*#__PURE__*/_react.default.createElement(Component, props)
+  }));
+};
+
+exports.PrivateRoute = PrivateRoute;
+var _default = PrivateRoute;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js"}],"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/styles/landing.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/pages/Landing.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36303,17 +36425,23 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
+require("../styles/landing.scss");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const Landing = () => {
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "landing-div"
-  }, /*#__PURE__*/_react.default.createElement("h1", null, "Landing"));
+  }, /*#__PURE__*/_react.default.createElement("h1", null, "GET STARTED"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/register"
+  }, "REGISTER"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/login"
+  }, "LOGIN")));
 };
 
 var _default = Landing;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../styles/landing.scss":"src/styles/landing.scss"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -38204,7 +38332,7 @@ var _actionTypes = require("../actionTypes");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const register = (username, email, password) => async dispatch => {
+const register = (username, email, password, history) => async dispatch => {
   try {
     let {
       data
@@ -38219,6 +38347,7 @@ const register = (username, email, password) => async dispatch => {
       payload: data
     });
     sessionStorage.setItem('user', JSON.stringify(data));
+    history.push('/home');
   } catch (error) {
     console.log(error.response.data.message);
     dispatch({
@@ -38229,7 +38358,7 @@ const register = (username, email, password) => async dispatch => {
 
 exports.register = register;
 
-const login = (email, password) => async dispatch => {
+const login = (email, password, history) => async dispatch => {
   try {
     let {
       data
@@ -38242,6 +38371,7 @@ const login = (email, password) => async dispatch => {
       payload: data
     });
     sessionStorage.setItem('user', JSON.stringify(data));
+    history.push('/home');
   } catch (error) {
     console.log(error.response);
     dispatch({
@@ -38254,14 +38384,16 @@ exports.login = login;
 
 const logout = () => async dispatch => {
   try {
-    let data = await _axios.default.get('/logout');
+    sessionStorage.clear();
+    let {
+      data
+    } = await _axios.default.get('/api/user/logout');
     dispatch({
-      type: LOGOUT,
+      type: _actionTypes.LOGOUT,
       payload: data
     });
-    sessionStorage.removeItem('user');
   } catch (error) {
-    console.log(error.response);
+    console.log(error);
     dispatch({
       type: _actionTypes.FAILURE
     });
@@ -38287,74 +38419,7 @@ const deleteProfile = id => async dispatch => {
 };
 
 exports.deleteProfile = deleteProfile;
-},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/styles/form.scss":[function(require,module,exports) {
+},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"src/styles/form.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -38418,7 +38483,10 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const Register = () => {
+const Register = _ref => {
+  let {
+    history
+  } = _ref;
   const dispatch = (0, _reactRedux.useDispatch)();
   const [username, setUsername] = (0, _react.useState)('');
   const [email, setEmail] = (0, _react.useState)('');
@@ -38427,7 +38495,7 @@ const Register = () => {
 
   const registerUser = e => {
     e.preventDefault();
-    console.log(dispatch((0, _user.register)(username, email, password)));
+    dispatch((0, _user.register)(username, email, password, history));
   };
 
   return /*#__PURE__*/_react.default.createElement("div", {
@@ -38487,43 +38555,60 @@ var _reactRedux = require("react-redux");
 
 var _user = require("../redux/actions/user");
 
+var _reactRouterDom = require("react-router-dom");
+
+var _Form = _interopRequireDefault(require("../components/Form"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const Login = () => {
+const Login = _ref => {
+  let {
+    history
+  } = _ref;
   const dispatch = (0, _reactRedux.useDispatch)();
   const [email, setEmail] = (0, _react.useState)('');
   const [password, setPassword] = (0, _react.useState)('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch((0, _user.login)(email, password));
+    dispatch((0, _user.login)(email, password, history));
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "register-page"
+  }, /*#__PURE__*/_react.default.createElement(_Form.default, {
+    formHeading: "LOGIN",
     onSubmit: handleSubmit
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "email",
     name: "email",
+    required: true,
     placeholder: "Email",
     value: email,
     onChange: e => setEmail(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "password",
     placeholder: "Password",
+    required: true,
     name: "password",
     value: password,
     onChange: e => setPassword(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
+    className: "form-submit",
     type: "submit",
-    value: "submit"
-  })));
+    value: "SUBMIT"
+  }), /*#__PURE__*/_react.default.createElement("p", null, "Don't have an Account?", /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/register"
+  }, " Register here")))));
 };
 
 var _default = Login;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js"}],"src/redux/actions/months.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../components/Form":"src/components/Form.js"}],"src/redux/actions/months.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38642,21 +38727,70 @@ var _reactRedux = require("react-redux");
 
 var _reactRouterDom = require("react-router-dom");
 
+var _user = require("../redux/actions/user");
+
 require("../styles/header.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const Header = () => {
+  const history = (0, _reactRouterDom.useHistory)();
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const userInfo = (0, _reactRedux.useSelector)(state => state.userReducer);
+  const {
+    user
+  } = userInfo;
+
+  const logoutUser = () => {
+    dispatch((0, _user.logout)());
+    history.push('/');
+  };
+
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "header"
-  }, /*#__PURE__*/_react.default.createElement("h2", null, "Username"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+  }, /*#__PURE__*/_react.default.createElement("h2", null, user.username), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/home"
+  }, "Home"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "/months"
-  }, "My Months"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, null, "Add Work Day"), /*#__PURE__*/_react.default.createElement("div", null, "Logout")));
+  }, "My Months"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/days"
+  }, "Add Work Day"), /*#__PURE__*/_react.default.createElement("div", {
+    onClick: logoutUser
+  }, "Logout")));
 };
 
 var _default = Header;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../styles/header.scss":"src/styles/header.scss"}],"src/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../redux/actions/user":"src/redux/actions/user.js","../styles/header.scss":"src/styles/header.scss"}],"src/styles/days.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/pages/Days.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("../styles/days.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Days = () => {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "days"
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
+    className: "create-day-form"
+  })), /*#__PURE__*/_react.default.createElement("div", null, "Test"));
+};
+
+var _default = Days;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../styles/days.scss":"src/styles/days.scss"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38669,6 +38803,8 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactRouterDom = require("react-router-dom");
 
 var _reactRedux = require("react-redux");
+
+var _PrivateRoute = _interopRequireDefault(require("./utils/PrivateRoute"));
 
 var _Landing = _interopRequireDefault(require("./pages/Landing"));
 
@@ -38684,6 +38820,8 @@ var _Month = _interopRequireDefault(require("./pages/Month"));
 
 var _Header = _interopRequireDefault(require("./components/Header"));
 
+var _Days = _interopRequireDefault(require("./pages/Days"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -38695,11 +38833,11 @@ const App = () => {
   const {
     user
   } = userLogin;
-  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_Header.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, user && /*#__PURE__*/_react.default.createElement(_Header.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/",
     component: _Landing.default
-  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }), /*#__PURE__*/_react.default.createElement(_PrivateRoute.default, {
     exact: true,
     path: "/home",
     component: _HomePage.default
@@ -38711,11 +38849,15 @@ const App = () => {
     exact: true,
     path: "/login",
     component: _Login.default
-  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }), /*#__PURE__*/_react.default.createElement(_PrivateRoute.default, {
+    exact: true,
+    path: "/days",
+    component: _Days.default
+  }), /*#__PURE__*/_react.default.createElement(_PrivateRoute.default, {
     exact: true,
     path: "/months",
     component: _Months.default
-  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }), /*#__PURE__*/_react.default.createElement(_PrivateRoute.default, {
     exact: true,
     path: "/months/:id",
     component: _Month.default
@@ -38724,7 +38866,7 @@ const App = () => {
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","./pages/Landing":"src/pages/Landing.js","./pages/HomePage":"src/pages/HomePage.js","./pages/Register":"src/pages/Register.js","./pages/Login":"src/pages/Login.js","./pages/Months":"src/pages/Months.js","./pages/Month":"src/pages/Month.js","./components/Header":"src/components/Header.js"}],"src/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","./utils/PrivateRoute":"src/utils/PrivateRoute.js","./pages/Landing":"src/pages/Landing.js","./pages/HomePage":"src/pages/HomePage.js","./pages/Register":"src/pages/Register.js","./pages/Login":"src/pages/Login.js","./pages/Months":"src/pages/Months.js","./pages/Month":"src/pages/Month.js","./components/Header":"src/components/Header.js","./pages/Days":"src/pages/Days.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -38770,7 +38912,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51840" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58077" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
