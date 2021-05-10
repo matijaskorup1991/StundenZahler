@@ -5,6 +5,7 @@ const {
   getAllMonths,
   createMonth,
   deleteMonth,
+  getMonth,
 } = require('../controller/months');
 
 router.route('/').get(protect, getAllMonths).post(protect, createMonth);

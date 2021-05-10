@@ -6,6 +6,8 @@ import Landing from './pages/Landing';
 import HomePage from './pages/HomePage';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Months from './pages/Months';
+import Month from './pages/Month';
 
 const App = () => {
   const userLogin = useSelector((state) => state.userReducer);
@@ -17,6 +19,8 @@ const App = () => {
         <Route exact path='/home' component={HomePage} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/months' component={Months} />
+        <Route exact path='/months/:id' component={Month} />
       </Switch>
     </BrowserRouter>
   );

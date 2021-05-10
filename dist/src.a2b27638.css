@@ -1,0 +1,52 @@
+.register-login-form {
+  width: 50vw;
+  min-height: 60vh;
+  margin: 0 auto;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.register-login-form input {
+  width: 90%;
+  padding: 15px;
+  font-size: 1.3rem;
+  border: 2px solid grey;
+  opacity: 0.5;
+  transition: all 0.3s linear;
+  border-radius: 8px;
+}
+.register-login-form span {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-decoration: underline;
+}
+.register-login-form .form-submit {
+  background-image: linear-gradient(to right, blue, green);
+  width: 50%;
+  color: white;
+  font-size: 1.3rem;
+}
+.register-login-form p {
+  margin-top: 35px;
+}
+
+.register-login-form input:hover {
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+@media (min-width: 1000px) {
+  .register-login-form {
+    width: 65vw;
+  }
+}
+.register-page {
+  background-color: azure;
+  padding-top: 15vh;
+}
+
+/*# sourceMappingURL=/src.a2b27638.css.map */

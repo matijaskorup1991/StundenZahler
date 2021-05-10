@@ -33119,7 +33119,7 @@ exports.devToolsEnhancer =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.UPDATE_DAY = exports.DELETE_DAY = exports.CREATE_DAY = exports.GET_ALL_DAYS = exports.DELETE_PROFILE = exports.LOGOUT = exports.LOGIN = exports.REGISTER = exports.FAILURE = exports.SUCCESS = void 0;
+exports.DELETE_MONTH = exports.GET_MONTH = exports.GET_ALL_MONTHS = exports.UPDATE_DAY = exports.DELETE_DAY = exports.CREATE_DAY = exports.GET_ALL_DAYS = exports.DELETE_PROFILE = exports.LOGOUT = exports.LOGIN = exports.REGISTER = exports.FAILURE = exports.SUCCESS = void 0;
 const SUCCESS = 'SUCCESS';
 exports.SUCCESS = SUCCESS;
 const FAILURE = 'FAILURE';
@@ -33140,6 +33140,12 @@ const DELETE_DAY = 'DELETE_DAY';
 exports.DELETE_DAY = DELETE_DAY;
 const UPDATE_DAY = 'UPDATE_DAY';
 exports.UPDATE_DAY = UPDATE_DAY;
+const GET_ALL_MONTHS = 'GET_ALL_MONTHS';
+exports.GET_ALL_MONTHS = GET_ALL_MONTHS;
+const GET_MONTH = 'GET_MONTH';
+exports.GET_MONTH = GET_MONTH;
+const DELETE_MONTH = 'DELETE_MONTH';
+exports.DELETE_MONTH = DELETE_MONTH;
 },{}],"src/redux/reducers/userReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -33190,6 +33196,91 @@ const reducer = function reducer() {
 
 var _default = reducer;
 exports.default = _default;
+},{"../actionTypes":"src/redux/actionTypes.js"}],"src/redux/reducers/days.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _actionTypes = require("../actionTypes");
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const initialState = {
+  days: null
+};
+
+const reducer = function reducer() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actionTypes.GET_ALL_DAYS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        days: action.payload
+      });
+
+    default:
+      return state;
+  }
+};
+
+var _default = reducer;
+exports.default = _default;
+},{"../actionTypes":"src/redux/actionTypes.js"}],"src/redux/reducers/months.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _actionTypes = require("../actionTypes");
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const initialState = {
+  months: null,
+  month: null
+};
+
+const reducer = function reducer() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actionTypes.GET_ALL_MONTHS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        months: action.payload
+      });
+
+    case _actionTypes.GET_MONTH:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        month: action.payload
+      });
+
+    case _actionTypes.FAILURE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        months: null
+      });
+
+    default:
+      return state;
+  }
+};
+
+var _default = reducer;
+exports.default = _default;
 },{"../actionTypes":"src/redux/actionTypes.js"}],"src/redux/store.js":[function(require,module,exports) {
 "use strict";
 
@@ -33206,17 +33297,23 @@ var _reduxDevtoolsExtension = require("redux-devtools-extension");
 
 var _userReducer = _interopRequireDefault(require("./reducers/userReducer"));
 
+var _days = _interopRequireDefault(require("./reducers/days"));
+
+var _months = _interopRequireDefault(require("./reducers/months"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const initialState = {};
 const middleware = [_reduxThunk.default];
 const reducer = (0, _redux.combineReducers)({
-  userReducer: _userReducer.default
+  userReducer: _userReducer.default,
+  daysReducer: _days.default,
+  monthsReducer: _months.default
 });
 const store = (0, _redux.createStore)(reducer, initialState, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(...middleware)));
 var _default = store;
 exports.default = _default;
-},{"redux":"node_modules/redux/es/redux.js","redux-thunk":"node_modules/redux-thunk/es/index.js","redux-devtools-extension":"node_modules/redux-devtools-extension/index.js","./reducers/userReducer":"src/redux/reducers/userReducer.js"}],"node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":[function(require,module,exports) {
+},{"redux":"node_modules/redux/es/redux.js","redux-thunk":"node_modules/redux-thunk/es/index.js","redux-devtools-extension":"node_modules/redux-devtools-extension/index.js","./reducers/userReducer":"src/redux/reducers/userReducer.js","./reducers/days":"src/redux/reducers/days.js","./reducers/months":"src/redux/reducers/months.js"}],"node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36216,25 +36313,7 @@ const Landing = () => {
 
 var _default = Landing;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"src/pages/HomePage.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const HomePage = () => {
-  return /*#__PURE__*/_react.default.createElement("div", null, "HomePage");
-};
-
-var _default = HomePage;
-exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -38052,7 +38131,66 @@ const config = _axios.default.create({
 
 var _default = config;
 exports.default = _default;
-},{"axios":"node_modules/axios/index.js"}],"src/redux/actions/user.js":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js"}],"src/redux/actions/days.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getAllDays = void 0;
+
+var _axios = _interopRequireDefault(require("../../utils/axios"));
+
+var _actionTypes = require("../actionTypes");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const getAllDays = () => async dispatch => {
+  try {
+    let {
+      data
+    } = await _axios.default.get('/api/month/day/');
+    dispatch({
+      type: _actionTypes.GET_ALL_DAYS,
+      payload: data
+    });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: FAILURE
+    });
+  }
+};
+
+exports.getAllDays = getAllDays;
+},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"src/pages/HomePage.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _days = require("../redux/actions/days");
+
+var _reactRedux = require("react-redux");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const HomePage = () => {
+  (0, _react.useEffect)(() => {
+    (0, _days.getAllDays)();
+  }, []);
+  return /*#__PURE__*/_react.default.createElement("div", null, "HomePage");
+};
+
+var _default = HomePage;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../redux/actions/days":"src/redux/actions/days.js","react-redux":"node_modules/react-redux/es/index.js"}],"src/redux/actions/user.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38149,7 +38287,112 @@ const deleteProfile = id => async dispatch => {
 };
 
 exports.deleteProfile = deleteProfile;
-},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"src/pages/Register.js":[function(require,module,exports) {
+},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/styles/form.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/Form.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("../styles/form.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Form = _ref => {
+  let {
+    children,
+    onSubmit,
+    formHeading
+  } = _ref;
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("form", {
+    onSubmit: onSubmit,
+    className: "register-login-form"
+  }, /*#__PURE__*/_react.default.createElement("h2", null, formHeading), children));
+};
+
+var _default = Form;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../styles/form.scss":"src/styles/form.scss"}],"src/styles/register.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/pages/Register.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38159,9 +38402,17 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _reactRouterDom = require("react-router-dom");
+
 var _reactRedux = require("react-redux");
 
 var _user = require("../redux/actions/user");
+
+var _Form = _interopRequireDefault(require("../components/Form"));
+
+require("../styles/register.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -38181,40 +38432,48 @@ const Register = () => {
 
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "register-page"
-  }, /*#__PURE__*/_react.default.createElement("form", {
-    onSubmit: registerUser
+  }, /*#__PURE__*/_react.default.createElement(_Form.default, {
+    onSubmit: registerUser,
+    formHeading: "CREATE ACCOUNT"
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     placeholder: "Username",
     value: username,
+    required: true,
     onChange: e => setUsername(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "email",
     name: "email",
     placeholder: "Email",
     value: email,
+    required: true,
     onChange: e => setEmail(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "password",
     placeholder: "Password",
     name: "password",
     value: password,
+    required: true,
     onChange: e => setPassword(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "password",
-    placeholder: "Password2",
+    placeholder: "Repeat your Password",
     name: "password2",
     value: password2,
+    required: true,
     onChange: e => setPassword2(e.target.value)
   }), /*#__PURE__*/_react.default.createElement("input", {
+    className: "form-submit",
     type: "submit",
-    value: "submit"
-  })));
+    value: "SUBMIT"
+  }), /*#__PURE__*/_react.default.createElement("p", null, "Have already an account?", ' ', /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/login"
+  }, "Login here")))));
 };
 
 var _default = Register;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js"}],"src/pages/Login.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js","../components/Form":"src/components/Form.js","../styles/register.scss":"src/styles/register.scss"}],"src/pages/Login.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38264,7 +38523,107 @@ const Login = () => {
 
 var _default = Login;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js"}],"src/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js"}],"src/redux/actions/months.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getMonth = exports.getAllMonths = void 0;
+
+var _axios = _interopRequireDefault(require("../../utils/axios"));
+
+var _actionTypes = require("../actionTypes");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const getAllMonths = () => async dispatch => {
+  try {
+    const {
+      data
+    } = await _axios.default.get('/api/month/');
+    dispatch({
+      type: _actionTypes.GET_ALL_MONTHS,
+      payload: data
+    });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: _actionTypes.FAILURE
+    });
+  }
+};
+
+exports.getAllMonths = getAllMonths;
+
+const getMonth = id => async dispatch => {
+  try {
+    let {
+      data
+    } = _axios.default.get("/api/month/".concat(id));
+
+    dispatch({
+      type: _actionTypes.GET_MONTH,
+      payload: data
+    });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: _actionTypes.FAILURE
+    });
+  }
+};
+
+exports.getMonth = getMonth;
+},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"src/pages/Months.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _months = require("../redux/actions/months");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Months = () => {
+  (0, _react.useEffect)(() => {
+    (0, _months.getAllMonths)();
+  }, []);
+  return /*#__PURE__*/_react.default.createElement("div", null);
+};
+
+var _default = Months;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../redux/actions/months":"src/redux/actions/months.js"}],"src/pages/Month.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _months = require("../redux/actions/months");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Month = () => {
+  (0, _react.useEffect)(() => {}, []);
+  return /*#__PURE__*/_react.default.createElement("div", null);
+};
+
+var _default = Month;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../redux/actions/months":"src/redux/actions/months.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38285,6 +38644,10 @@ var _HomePage = _interopRequireDefault(require("./pages/HomePage"));
 var _Register = _interopRequireDefault(require("./pages/Register"));
 
 var _Login = _interopRequireDefault(require("./pages/Login"));
+
+var _Months = _interopRequireDefault(require("./pages/Months"));
+
+var _Month = _interopRequireDefault(require("./pages/Month"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38313,12 +38676,20 @@ const App = () => {
     exact: true,
     path: "/login",
     component: _Login.default
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    exact: true,
+    path: "/months",
+    component: _Months.default
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    exact: true,
+    path: "/months/:id",
+    component: _Month.default
   })));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","./pages/Landing":"src/pages/Landing.js","./pages/HomePage":"src/pages/HomePage.js","./pages/Register":"src/pages/Register.js","./pages/Login":"src/pages/Login.js"}],"src/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","react-redux":"node_modules/react-redux/es/index.js","./pages/Landing":"src/pages/Landing.js","./pages/HomePage":"src/pages/HomePage.js","./pages/Register":"src/pages/Register.js","./pages/Login":"src/pages/Login.js","./pages/Months":"src/pages/Months.js","./pages/Month":"src/pages/Month.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -38364,7 +38735,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59814" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60760" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

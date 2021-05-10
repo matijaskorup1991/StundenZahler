@@ -12,6 +12,8 @@ a {
 
 html {
   font-family: 'Antonio', sans-serif;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 
