@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllDays } from '../redux/actions/days';
 import { useDispatch, useSelector } from 'react-redux';
-import { createDay } from '../redux/actions/days';
+import { createDay, deleteDay } from '../redux/actions/days';
 import DaysTable from '../components/DaysTable';
 import DaysTableData from '../components/DaysTableData';
 
@@ -25,6 +25,11 @@ const Days = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createDay(date, hours));
+  };
+
+  const deleteDayHandler = (el) => {
+    console.log(el);
+    dispatch(deleteDay(el));
   };
 
   const saveToMonths = () => {};
@@ -56,12 +61,13 @@ const Days = () => {
         <div className='days-collection'>
           <DaysTable>
             {days.length > 0 &&
-              days.map(({ id, day, hour }) => {
+              days.map((el) => {
                 return (
                   <DaysTableData
-                    key={id}
-                    day={day.substring(0, day.indexOf('T'))}
-                    hour={hour}
+                    keyList={el.id}
+                    day={el.day.substring(0, el.day.indexOf('T'))}
+                    hour={el.hour}
+                    deleteHandler={() => deleteDayHandler(el.id)}
                   />
                 );
               })}

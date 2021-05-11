@@ -22,6 +22,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         days: [...state.days, action.payload.day],
       };
+    case DELETE_DAY:
+      return {
+        ...state,
+        days: state.days.filter((el) => el.id !== action.payload),
+      };
     case LOGOUT:
       return {
         ...state,

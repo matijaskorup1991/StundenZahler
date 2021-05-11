@@ -32,3 +32,13 @@ export const createDay = (date, hours) => async (dispatch) => {
     dispatch({ type: FAILURE });
   }
 };
+
+export const deleteDay = (id) => async (dispatch) => {
+  try {
+    let { data } = await axios.delete(`/api/day/${id}`);
+    console.log(data);
+    dispatch({ type: DELETE_DAY, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
