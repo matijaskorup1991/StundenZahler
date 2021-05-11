@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { getAllDays } from '../redux/actions/days';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import '../styles/homePage.scss';
 
 const HomePage = () => {
-  useEffect(() => {
-    getAllDays();
-  }, []);
-  return <div>HomePage</div>;
+  return (
+    <div className='home-page'>
+      <h1>DAILY WORK PLANNER</h1>
+      <h2>keep track of your work hours</h2>
+    </div>
+  );
 };
 
 export default HomePage;

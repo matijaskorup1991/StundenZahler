@@ -10,8 +10,8 @@ const checkEmail = require('../utils/checkEmail');
 function sendTokenResponse(user, statusCode, res) {
   let token = getJwt(user.rows[0].id);
   const options = {
-    expires: new Date(Date.now() * 24 * 60 * 60 * 10000),
-    httpOnly: true,
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 10000),
+    // httpOnly: true,
   };
 
   if (process.env.NODE_ENV == 'production') {
@@ -62,6 +62,7 @@ const register = asyncCall(async (req, res, next) => {
 
 const login = asyncCall(async (req, res, next) => {
   const { email, password } = req.body;
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
 
   let user = await db.query('select * from users where email =$1', [email]);
 
@@ -75,6 +76,7 @@ const login = asyncCall(async (req, res, next) => {
     return next(new ErrorHandler('Wrong password!', 403));
   }
 
+  console.log(sendTokenResponse(user, 200, res));
   sendTokenResponse(user, 200, res);
 });
 
@@ -108,11 +110,6 @@ const updateProfile = asyncCall(async (req, res, next) => {
 });
 
 const logout = asyncCall(async (req, res, next) => {
-  // res.cookie('token', 'none', {
-  //   expires: new Date(Date.now() + 10 * 100),
-  //   httpOnly: true,
-  // });
-
   res.cookie('token', '', {
     httpOnly: true,
     secure: true,

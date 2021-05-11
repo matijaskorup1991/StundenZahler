@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
@@ -7,6 +7,7 @@ import '../styles/header.scss';
 
 const Header = () => {
   const history = useHistory();
+
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userReducer);
   const { user } = userInfo;
@@ -14,6 +15,7 @@ const Header = () => {
     dispatch(logout());
     history.push('/');
   };
+
   return (
     <div className='header'>
       <h2>{user.username}</h2>

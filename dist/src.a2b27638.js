@@ -36441,7 +36441,34 @@ const Landing = () => {
 
 var _default = Landing;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../styles/landing.scss":"src/styles/landing.scss"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../styles/landing.scss":"src/styles/landing.scss"}],"src/styles/homePage.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../Users/matij/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/pages/HomePage.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("../styles/homePage.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const HomePage = () => {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "home-page"
+  }, /*#__PURE__*/_react.default.createElement("h1", null, "DAILY WORK PLANNER"), /*#__PURE__*/_react.default.createElement("h2", null, "keep track of your work hours"));
+};
+
+var _default = HomePage;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../styles/homePage.scss":"src/styles/homePage.scss"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -38254,71 +38281,14 @@ var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const config = _axios.default.create({
-  baseURL: 'http://localhost:5000'
+  baseURL: 'http://localhost:5000',
+  withCredentials: true,
+  credentials: 'include'
 });
 
 var _default = config;
 exports.default = _default;
-},{"axios":"node_modules/axios/index.js"}],"src/redux/actions/days.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getAllDays = void 0;
-
-var _axios = _interopRequireDefault(require("../../utils/axios"));
-
-var _actionTypes = require("../actionTypes");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const getAllDays = () => async dispatch => {
-  try {
-    let {
-      data
-    } = await _axios.default.get('/api/month/day/');
-    dispatch({
-      type: _actionTypes.GET_ALL_DAYS,
-      payload: data
-    });
-  } catch (error) {
-    console.log(error.response);
-    dispatch({
-      type: FAILURE
-    });
-  }
-};
-
-exports.getAllDays = getAllDays;
-},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"src/pages/HomePage.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _days = require("../redux/actions/days");
-
-var _reactRedux = require("react-redux");
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const HomePage = () => {
-  (0, _react.useEffect)(() => {
-    (0, _days.getAllDays)();
-  }, []);
-  return /*#__PURE__*/_react.default.createElement("div", null, "HomePage");
-};
-
-var _default = HomePage;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","../redux/actions/days":"src/redux/actions/days.js","react-redux":"node_modules/react-redux/es/index.js"}],"src/redux/actions/user.js":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js"}],"src/redux/actions/user.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38365,7 +38335,21 @@ const login = (email, password, history) => async dispatch => {
     } = await _axios.default.post('/api/user/login', {
       email,
       password
-    });
+    }); // var headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Accept', 'application/json');
+    // let data = await fetch('http://localhost:5000/api/user/login', {
+    //   method: 'POST',
+    //   // mode: 'same-origin',
+    //   redirect: 'follow',
+    //   credentials: 'include', // Don't forget to specify this if you need cookies
+    //   headers: headers,
+    //   body: JSON.stringify({
+    //     email,
+    //     password,
+    //   }),
+    // });
+
     dispatch({
       type: _actionTypes.LOGIN,
       payload: data
@@ -38373,6 +38357,7 @@ const login = (email, password, history) => async dispatch => {
     sessionStorage.setItem('user', JSON.stringify(data));
     history.push('/home');
   } catch (error) {
+    console.log(error);
     console.log(error.response);
     dispatch({
       type: _actionTypes.FAILURE
@@ -38483,11 +38468,9 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const Register = _ref => {
-  let {
-    history
-  } = _ref;
+const Register = () => {
   const dispatch = (0, _reactRedux.useDispatch)();
+  const history = (0, _reactRouterDom.useHistory)();
   const [username, setUsername] = (0, _react.useState)('');
   const [email, setEmail] = (0, _react.useState)('');
   const [password, setPassword] = (0, _react.useState)('');
@@ -38553,9 +38536,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactRedux = require("react-redux");
 
-var _user = require("../redux/actions/user");
-
 var _reactRouterDom = require("react-router-dom");
+
+var _user = require("../redux/actions/user");
 
 var _Form = _interopRequireDefault(require("../components/Form"));
 
@@ -38565,11 +38548,9 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const Login = _ref => {
-  let {
-    history
-  } = _ref;
+const Login = () => {
   const dispatch = (0, _reactRedux.useDispatch)();
+  const history = (0, _reactRouterDom.useHistory)();
   const [email, setEmail] = (0, _react.useState)('');
   const [password, setPassword] = (0, _react.useState)('');
 
@@ -38608,7 +38589,7 @@ const Login = _ref => {
 
 var _default = Login;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","../redux/actions/user":"src/redux/actions/user.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../components/Form":"src/components/Form.js"}],"src/redux/actions/months.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../redux/actions/user":"src/redux/actions/user.js","../components/Form":"src/components/Form.js"}],"src/redux/actions/months.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38721,7 +38702,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactRedux = require("react-redux");
 
@@ -38731,7 +38712,9 @@ var _user = require("../redux/actions/user");
 
 require("../styles/header.scss");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const Header = () => {
   const history = (0, _reactRouterDom.useHistory)();
@@ -38761,7 +38744,40 @@ const Header = () => {
 
 var _default = Header;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../redux/actions/user":"src/redux/actions/user.js","../styles/header.scss":"src/styles/header.scss"}],"src/styles/days.scss":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../redux/actions/user":"src/redux/actions/user.js","../styles/header.scss":"src/styles/header.scss"}],"src/redux/actions/days.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getAllDays = void 0;
+
+var _axios = _interopRequireDefault(require("../../utils/axios"));
+
+var _actionTypes = require("../actionTypes");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const getAllDays = () => async dispatch => {
+  try {
+    let {
+      data
+    } = await _axios.default.get('/api/day/');
+    dispatch({
+      type: _actionTypes.GET_ALL_DAYS,
+      payload: data
+    });
+  } catch (error) {
+    console.log(error);
+    console.log(error.response);
+    dispatch({
+      type: _actionTypes.FAILURE
+    });
+  }
+};
+
+exports.getAllDays = getAllDays;
+},{"../../utils/axios":"src/utils/axios.js","../actionTypes":"src/redux/actionTypes.js"}],"src/styles/days.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -38774,13 +38790,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
+
+var _days = require("../redux/actions/days");
+
+var _reactRedux = require("react-redux");
 
 require("../styles/days.scss");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const Days = () => {
+  const dispatch = (0, _reactRedux.useDispatch)();
+  (0, _react.useEffect)(() => {
+    dispatch((0, _days.getAllDays)());
+  }, []);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "days"
   }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
@@ -38790,7 +38816,7 @@ const Days = () => {
 
 var _default = Days;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../styles/days.scss":"src/styles/days.scss"}],"src/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../redux/actions/days":"src/redux/actions/days.js","react-redux":"node_modules/react-redux/es/index.js","../styles/days.scss":"src/styles/days.scss"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38844,11 +38870,15 @@ const App = () => {
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/register",
-    component: _Register.default
+    component: () => user ? /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
+      to: "/"
+    }) : /*#__PURE__*/_react.default.createElement(_Register.default, null)
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/login",
-    component: _Login.default
+    component: () => user ? /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
+      to: "/"
+    }) : /*#__PURE__*/_react.default.createElement(_Login.default, null)
   }), /*#__PURE__*/_react.default.createElement(_PrivateRoute.default, {
     exact: true,
     path: "/days",
@@ -38912,7 +38942,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58077" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57152" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { protect } = require('../middleware/authMiddleware');
 const {
   getAllDays,
   getDay,
@@ -7,7 +8,6 @@ const {
   deleteDay,
   createDay,
 } = require('../controller/day');
-const { protect } = require('../middleware/authMiddleware');
 
 router.route('/').get(protect, getAllDays).post(protect, createDay);
 router

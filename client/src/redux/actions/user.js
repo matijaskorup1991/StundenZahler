@@ -34,6 +34,23 @@ export const register = (username, email, password, history) => async (
 export const login = (email, password, history) => async (dispatch) => {
   try {
     let { data } = await axios.post('/api/user/login', { email, password });
+
+    // var headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Accept', 'application/json');
+
+    // let data = await fetch('http://localhost:5000/api/user/login', {
+    //   method: 'POST',
+    //   // mode: 'same-origin',
+    //   redirect: 'follow',
+    //   credentials: 'include', // Don't forget to specify this if you need cookies
+    //   headers: headers,
+    //   body: JSON.stringify({
+    //     email,
+    //     password,
+    //   }),
+    // });
+
     dispatch({
       type: LOGIN,
       payload: data,
@@ -41,6 +58,7 @@ export const login = (email, password, history) => async (dispatch) => {
     sessionStorage.setItem('user', JSON.stringify(data));
     history.push('/home');
   } catch (error) {
+    console.log(error);
     console.log(error.response);
     dispatch({ type: FAILURE });
   }

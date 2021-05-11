@@ -29,6 +29,18 @@
   background-color: black;
   color: white;
 }
+.home-page {
+  padding-top: 15vh;
+}
+.home-page h1 {
+  text-align: center;
+  font-size: 4rem;
+}
+.home-page h2 {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 10vh;
+}
 .register-login-form {
   width: 45vw;
   min-height: 65vh;

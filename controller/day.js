@@ -3,12 +3,17 @@ const ErrorHandler = require('../utils/error');
 const asyncCall = require('../utils/asyncCall');
 
 const getAllDays = asyncCall(async (req, res, next) => {
-  let {
-    rows,
-  } = await db.query(
-    'select * from days where user_id = $1 order by day desc',
-    [req.user.id]
-  );
+  // let {
+  //   rows,
+  // } = await db.query(
+  //   'select * from days where user_id = $1 order by day desc',
+  //   [req.user.id]
+  // );
+
+  let { rows } = await db.query('select * from days where user_id=$1', [
+    req.user.id,
+  ]);
+
   if (rows.length < 1) {
     return next(new ErrorHandler('There is nothing to show yet', 404));
   }

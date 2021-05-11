@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { register } from '../redux/actions/user';
 import Form from '../components/Form';
 import '../styles/register.scss';
 
-const Register = ({ history }) => {
+const Register = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');

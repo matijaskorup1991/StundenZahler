@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PrivateRoute from './utils/PrivateRoute';
 
@@ -21,8 +21,16 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={Landing} />
         <PrivateRoute exact path='/home' component={HomePage} />
-        <Route exact path='/register' component={Register} />
-        <Route exact path='/login' component={Login} />
+        <Route
+          exact
+          path='/register'
+          component={() => (user ? <Redirect to='/' /> : <Register />)}
+        />
+        <Route
+          exact
+          path='/login'
+          component={() => (user ? <Redirect to='/' /> : <Login />)}
+        />
         <PrivateRoute exact path='/days' component={Days} />
         <PrivateRoute exact path='/months' component={Months} />
         <PrivateRoute exact path='/months/:id' component={Month} />
