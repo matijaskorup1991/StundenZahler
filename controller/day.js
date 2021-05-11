@@ -27,7 +27,7 @@ const createDay = asyncCall(async (req, res, next) => {
   }
 
   let { rows } = await db.query(
-    'insert into days (day, hour, user_id) values ($1,$2,$3)',
+    'insert into days (day, hour, user_id) values ($1,$2,$3) returning *',
     [date, hours, req.user.id]
   );
   res.status(201).json({

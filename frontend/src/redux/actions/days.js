@@ -10,6 +10,7 @@ import {
 export const getAllDays = () => async (dispatch) => {
   try {
     let { data } = await axios.get('/api/day/');
+
     dispatch({
       type: GET_ALL_DAYS,
       payload: data,
@@ -24,6 +25,7 @@ export const getAllDays = () => async (dispatch) => {
 export const createDay = (date, hours) => async (dispatch) => {
   try {
     let { data } = await axios.post('/api/day/', { date, hours });
+    console.log(JSON.stringify(data));
     dispatch({ type: CREATE_DAY, payload: data });
   } catch (error) {
     console.log(error);

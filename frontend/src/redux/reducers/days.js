@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     case CREATE_DAY:
       return {
         ...state,
-        days: state.days.push(action.payload),
+        days: [...state.days, action.payload.day],
       };
     case LOGOUT:
       return {

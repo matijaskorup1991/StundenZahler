@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { getAllDays } from '../redux/actions/days';
 import { useDispatch, useSelector } from 'react-redux';
 import { createDay } from '../redux/actions/days';
+import DaysTable from '../components/DaysTable';
+import DaysTableData from '../components/DaysTableData';
+
 import '../styles/days.scss';
 
 const Days = () => {
@@ -51,29 +54,18 @@ const Days = () => {
       </div>
       <div>
         <div className='days-collection'>
-          <table>
-            <thead>
-              <tr>
-                <td>DATE:</td>
-                <td>HOURS:</td>
-              </tr>
-            </thead>
+          <DaysTable>
             {days.length > 0 &&
               days.map(({ id, day, hour }) => {
                 return (
-                  <tr key={id} className='days-to-save'>
-                    <td> {day.substring(0, day.indexOf('T'))}</td>
-                    <td> {hour}</td>
-                    <td>
-                      <div className='days-update'>UPDATE</div>
-                    </td>
-                    <td>
-                      <div className='days-delete'>DELETE</div>
-                    </td>
-                  </tr>
+                  <DaysTableData
+                    key={id}
+                    day={day.substring(0, day.indexOf('T'))}
+                    hour={hour}
+                  />
                 );
               })}
-          </table>
+          </DaysTable>
         </div>
         <div className='days-add-to-months'>
           <div onClick={saveToMonths}>SAVE TO MONTHS</div>
