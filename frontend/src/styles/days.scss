@@ -1,3 +1,49 @@
 .days {
   display: flex;
+  padding-top: 10vh;
+  div {
+    width: 100%;
+  }
+  .days-add-to-months {
+    text-align: center;
+    div {
+      background-color: white;
+      cursor: pointer;
+      border: 2px solid black;
+      padding: 20px;
+      width: 200px;
+      transition: all 0.3s linear;
+      margin: 0 auto;
+    }
+    div:hover {
+      font-weight: bold;
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+.create-day-form {
+  text-align: center;
+
+  .label {
+    margin: 1.5rem 0;
+  }
+
+  input {
+    width: 150px;
+    padding: 15px;
+    text-align: center;
+  }
+  input[type='submit'] {
+    cursor: pointer;
+    margin-top: 1rem;
+    font-weight: bold;
+    background-color: white;
+    transition: all 0.3s linear;
+  }
+  input[type='submit']:hover {
+    background-color: black;
+    color: white;
+  }
 }

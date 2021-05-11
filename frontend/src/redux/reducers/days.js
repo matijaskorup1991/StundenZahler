@@ -6,7 +6,7 @@ import {
 } from '../actionTypes';
 
 const initialState = {
-  days: null,
+  days: [],
 };
 
 const reducer = (state = initialState, action) => {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../redux/actions/user';
 import '../styles/header.scss';
@@ -20,9 +20,15 @@ const Header = () => {
     <div className='header'>
       <h2>{user.username}</h2>
       <div>
-        <Link to='/home'>Home</Link>
-        <Link to='/months'>My Months</Link>
-        <Link to='/days'>Add Work Day</Link>
+        <NavLink activeStyle={{ color: 'red' }} to='/home'>
+          Home
+        </NavLink>
+        <NavLink activeStyle={{ color: 'red' }} to='/months'>
+          My Months
+        </NavLink>
+        <NavLink activeStyle={{ color: 'red' }} to='/days'>
+          Add Work Day
+        </NavLink>
         <div onClick={logoutUser}>Logout</div>
       </div>
     </div>
