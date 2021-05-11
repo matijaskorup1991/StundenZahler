@@ -3,16 +3,10 @@ const ErrorHandler = require('../utils/error');
 const asyncCall = require('../utils/asyncCall');
 
 const getAllDays = asyncCall(async (req, res, next) => {
-  // let {
-  //   rows,
-  // } = await db.query(
-  //   'select * from days where user_id = $1 order by day desc',
-  //   [req.user.id]
-  // );
-
-  let { rows } = await db.query('select * from days where user_id=$1', [
-    req.user.id,
-  ]);
+  let { rows } = await db.query(
+    'select * from days where user_id=$1 order by day desc',
+    [req.user.id]
+  );
 
   if (rows.length < 1) {
     return next(new ErrorHandler('There is nothing to show yet', 404));
@@ -32,9 +26,7 @@ const createDay = asyncCall(async (req, res, next) => {
     return next(new ErrorHandler('Please provide all Information!', 401));
   }
 
-  let {
-    rows,
-  } = await db.query(
+  let { rows } = await db.query(
     'insert into days (day, hour, user_id) values ($1,$2,$3)',
     [date, hours, req.user.id]
   );
@@ -65,9 +57,7 @@ const updateDay = asyncCall(async (req, res, next) => {
     return next(new ErrorHandler('Please provide all Information!', 401));
   }
 
-  let {
-    rows,
-  } = await db.query(
+  let { rows } = await db.query(
     'update days set date=$1, hours=$2 where id=$3 returning *',
     [date, hours, req.params.id]
   );

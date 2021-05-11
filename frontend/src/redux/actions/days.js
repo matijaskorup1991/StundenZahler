@@ -21,4 +21,12 @@ export const getAllDays = () => async (dispatch) => {
   }
 };
 
-export const createDay = () => async (dispatch) => {};
+export const createDay = (date, hours) => async (dispatch) => {
+  try {
+    let { data } = await axios.post('/api/day/', { date, hours });
+    dispatch({ type: CREATE_DAY, payload: data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: FAILURE });
+  }
+};

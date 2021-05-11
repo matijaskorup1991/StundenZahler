@@ -5,6 +5,7 @@ export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const DELETE_PROFILE = 'DELETE_PROFILE';
+export const USER_FAILURE = 'USER_FAILURE';
 
 export const GET_ALL_DAYS = 'GET_ALL_DAYS';
 export const CREATE_DAY = 'CREATE_DAY';

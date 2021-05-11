@@ -3,6 +3,7 @@ import {
   CREATE_DAY,
   UPDATE_DAY,
   DELETE_DAY,
+  LOGOUT,
 } from '../actionTypes';
 
 const initialState = {
@@ -14,7 +15,17 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_DAYS:
       return {
         ...state,
-        days: action.payload,
+        days: action.payload.days,
+      };
+    case CREATE_DAY:
+      return {
+        ...state,
+        days: state.days.push(action.payload),
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        days: [],
       };
     default:
       return state;

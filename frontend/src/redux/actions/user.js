@@ -3,7 +3,7 @@ import {
   REGISTER,
   LOGIN,
   LOGOUT,
-  FAILURE,
+  USER_FAILURE,
   DELETE_PROFILE,
 } from '../actionTypes';
 
@@ -25,7 +25,7 @@ export const register =
     } catch (error) {
       console.log(error.response.data.message);
       dispatch({
-        type: FAILURE,
+        type: USER_FAILURE,
       });
     }
   };
@@ -33,22 +33,6 @@ export const register =
 export const login = (email, password, history) => async (dispatch) => {
   try {
     let { data } = await axios.post('/api/user/login', { email, password });
-
-    // var headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Accept', 'application/json');
-
-    // let data = await fetch('http://localhost:5000/api/user/login', {
-    //   method: 'POST',
-    //   // mode: 'same-origin',
-    //   redirect: 'follow',
-    //   credentials: 'include', // Don't forget to specify this if you need cookies
-    //   headers: headers,
-    //   body: JSON.stringify({
-    //     email,
-    //     password,
-    //   }),
-    // });
 
     dispatch({
       type: LOGIN,
@@ -59,7 +43,7 @@ export const login = (email, password, history) => async (dispatch) => {
   } catch (error) {
     console.log(error);
     console.log(error.response);
-    dispatch({ type: FAILURE });
+    dispatch({ type: USER_FAILURE });
   }
 };
 
@@ -72,7 +56,7 @@ export const logout = () => async (dispatch) => {
     dispatch({ type: LOGOUT, payload: data });
   } catch (error) {
     console.log(error);
-    dispatch({ type: FAILURE });
+    dispatch({ type: USER_FAILURE });
   }
 };
 
@@ -83,6 +67,6 @@ export const deleteProfile = (id) => async (dispatch) => {
     sessionStorage.removeItem('user');
   } catch (error) {
     console.log(error.response);
-    dispatch({ type: FAILURE });
+    dispatch({ type: USER_FAILURE });
   }
 };

@@ -1,4 +1,4 @@
-import { REGISTER, FAILURE, LOGIN, LOGOUT } from '../actionTypes';
+import { REGISTER, USER_FAILURE, LOGIN, LOGOUT } from '../actionTypes';
 
 const initialState = {
   user: null,
@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
         message: action.payload.message,
       };
 
-    case FAILURE:
+    case USER_FAILURE:
       return {
         user: null,
         error: action.payload,

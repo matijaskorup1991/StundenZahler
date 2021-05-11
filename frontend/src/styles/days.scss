@@ -1,11 +1,9 @@
 .days {
-  display: flex;
-  padding-top: 10vh;
-  div {
-    width: 100%;
-  }
+  padding: 10vh 15%;
+
   .days-add-to-months {
     text-align: center;
+    margin-top: 1rem;
     div {
       background-color: white;
       cursor: pointer;
@@ -25,20 +23,27 @@
 
 .create-day-form {
   text-align: center;
-
+  margin-bottom: 10vh;
+  display: flex;
   .label {
-    margin: 1.5rem 0;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   input {
-    width: 150px;
+    width: 160px;
     padding: 15px;
     text-align: center;
+    margin: 0 1rem;
   }
   input[type='submit'] {
     cursor: pointer;
-    margin-top: 1rem;
+    margin-left: 1rem;
     font-weight: bold;
+    padding: 15px;
     background-color: white;
     transition: all 0.3s linear;
   }
@@ -46,4 +51,53 @@
     background-color: black;
     color: white;
   }
+}
+
+.days-to-save {
+  span {
+    display: inline-block;
+    margin: 0.5rem 1rem;
+  }
+}
+
+.days-collection {
+  table {
+    margin: 0 auto;
+    width: 50%;
+    thead {
+      font-weight: bold;
+    }
+    tr {
+      text-align: center;
+    }
+    td {
+      padding: 0.4rem;
+    }
+  }
+}
+
+.days-update {
+  margin-right: 0.5rem;
+  border: 1px solid black;
+  padding: 0.5rem;
+  background-color: lightgreen;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s linear;
+}
+.days-update:hover {
+  background-color: green;
+}
+
+.days-delete {
+  border: 1px solid black;
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: lightcoral;
+  font-weight: bold;
+  transition: all 0.3s linear;
+}
+
+.days-delete:hover {
+  background-color: coral;
 }
