@@ -20,3 +20,5 @@ export const getAllDays = () => async (dispatch) => {
     dispatch({ type: FAILURE });
   }
 };
+
+export const createDay = () => async (dispatch) => {};

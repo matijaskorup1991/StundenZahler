@@ -5,9 +5,11 @@ import '../styles/days.scss';
 
 const Days = () => {
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.daysReducer);
+  const { days } = data;
   useEffect(() => {
     dispatch(getAllDays());
-  }, []);
+  }, [days]);
   return (
     <div className='days'>
       <div>
