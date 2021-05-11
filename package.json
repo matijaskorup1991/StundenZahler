@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "server": "nodemon app.js",
-    "client":"parcel ./client/index.html",
+    "client": "npm start --prefix frontend",
     "dev":"concurrently \"npm run server\" \"npm run client\""
 
   },

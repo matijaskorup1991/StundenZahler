@@ -11,7 +11,7 @@ function sendTokenResponse(user, statusCode, res) {
   let token = getJwt(user.rows[0].id);
   const options = {
     expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 10000),
-    // httpOnly: true,
+    httpOnly: true,
   };
 
   if (process.env.NODE_ENV == 'production') {

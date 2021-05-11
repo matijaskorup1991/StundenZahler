@@ -1,4 +1,4 @@
-import axios from '../../utils/axios';
+import axios from 'axios';
 import {
   REGISTER,
   LOGIN,
@@ -7,29 +7,28 @@ import {
   DELETE_PROFILE,
 } from '../actionTypes';
 
-export const register = (username, email, password, history) => async (
-  dispatch
-) => {
-  try {
-    let { data } = await axios.post('/api/user/register', {
-      username,
-      email,
-      password,
-    });
-    console.log(data);
-    dispatch({
-      type: REGISTER,
-      payload: data,
-    });
-    sessionStorage.setItem('user', JSON.stringify(data));
-    history.push('/home');
-  } catch (error) {
-    console.log(error.response.data.message);
-    dispatch({
-      type: FAILURE,
-    });
-  }
-};
+export const register =
+  (username, email, password, history) => async (dispatch) => {
+    try {
+      let { data } = await axios.post('/api/user/register', {
+        username,
+        email,
+        password,
+      });
+      console.log(data);
+      dispatch({
+        type: REGISTER,
+        payload: data,
+      });
+      sessionStorage.setItem('user', JSON.stringify(data));
+      history.push('/home');
+    } catch (error) {
+      console.log(error.response.data.message);
+      dispatch({
+        type: FAILURE,
+      });
+    }
+  };
 
 export const login = (email, password, history) => async (dispatch) => {
   try {
