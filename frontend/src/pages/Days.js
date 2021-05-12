@@ -26,7 +26,6 @@ const Days = () => {
   const formatDate = (el) => {
     console.log(new Date(el.day).toLocaleDateString());
     return new Date(el.day).toLocaleDateString();
-    // el.day.substring(0, el.day.indexOf('T'));
   };
 
   const handleSubmit = (e) => {
@@ -48,16 +47,17 @@ const Days = () => {
 
   const updateDayHandler = (el) => {
     setActiveUpdate(true);
-    console.log(el);
+    console.log(new Date(el.day).toISOString().split('T')[0], date);
     setDate(new Date(el.day).toISOString().split('T')[0]);
-    // formatDate(el)
     setHours(el.hour);
   };
 
   const saveToMonths = () => {};
 
   const checkDays = () => {
-    return days.some((el) => formatDate(el) == date);
+    return days.some(
+      (el) => new Date(el.day).toISOString().split('T')[0] == date
+    );
   };
 
   return (
