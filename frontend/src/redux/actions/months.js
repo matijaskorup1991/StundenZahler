@@ -31,3 +31,5 @@ export const getMonth = (id) => async (dispatch) => {
     dispatch({ type: FAILURE });
   }
 };
+
+export const saveToMonth = () => {};
