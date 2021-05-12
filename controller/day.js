@@ -58,7 +58,7 @@ const updateDay = asyncCall(async (req, res, next) => {
   }
 
   let { rows } = await db.query(
-    'update days set date=$1, hours=$2 where id=$3 returning *',
+    'update days set day=$1, hour=$2 where id=$3 returning *',
     [date, hours, req.params.id]
   );
 

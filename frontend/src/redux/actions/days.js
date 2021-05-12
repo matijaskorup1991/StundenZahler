@@ -26,7 +26,6 @@ export const createDay = (date, hours) => async (dispatch) => {
   try {
     console.log(date);
     let { data } = await axios.post('/api/day/', { date, hours });
-    console.log(JSON.stringify(data));
     dispatch({ type: CREATE_DAY, payload: data });
   } catch (error) {
     console.log(error);

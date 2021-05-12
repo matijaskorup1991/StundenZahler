@@ -13,31 +13,30 @@ const Days = () => {
   const data = useSelector((state) => state.daysReducer);
   const { days } = data;
 
-  console.log(days);
-
-  useEffect(() => {
-    dispatch(getAllDays());
-  }, []);
-
   const [date, setDate] = useState('');
   const [hours, setHours] = useState(0);
   const [activeUpdate, setActiveUpdate] = useState(false);
+  const [idToUpdate, setIdToUpdate] = useState('');
+
+  useEffect(() => {
+    dispatch(getAllDays());
+  }, [activeUpdate]);
 
   const formatDate = (el) => {
-    console.log(new Date(el.day).toLocaleDateString());
-    return new Date(el.day).toLocaleDateString();
+    return new Date(el.day).toISOString().split('T')[0];
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setActiveUpdate(false);
     dispatch(createDay(date, hours));
-    console.log(date);
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
+    dispatch(updateDay(idToUpdate, date, hours));
     setActiveUpdate(false);
+    setIdToUpdate('');
   };
 
   const deleteDayHandler = (id) => {
@@ -47,17 +46,15 @@ const Days = () => {
 
   const updateDayHandler = (el) => {
     setActiveUpdate(true);
-    console.log(new Date(el.day).toISOString().split('T')[0], date);
-    setDate(new Date(el.day).toISOString().split('T')[0]);
+    setDate(formatDate(el));
     setHours(el.hour);
+    setIdToUpdate(el.id);
   };
 
   const saveToMonths = () => {};
 
   const checkDays = () => {
-    return days.some(
-      (el) => new Date(el.day).toISOString().split('T')[0] == date
-    );
+    return days.some((el) => formatDate(el) == date);
   };
 
   return (
