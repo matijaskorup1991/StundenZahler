@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllDays } from '../redux/actions/days';
 import { useDispatch, useSelector } from 'react-redux';
-import { createDay, deleteDay } from '../redux/actions/days';
+import { createDay, deleteDay, updateDay } from '../redux/actions/days';
 import DaysTable from '../components/DaysTable';
 import DaysTableData from '../components/DaysTableData';
 
@@ -21,40 +21,76 @@ const Days = () => {
 
   const [date, setDate] = useState('');
   const [hours, setHours] = useState(0);
+  const [activeUpdate, setActiveUpdate] = useState(false);
+
+  const formatDate = (el) => {
+    console.log(new Date(el.day).toLocaleDateString());
+    return new Date(el.day).toLocaleDateString();
+    // el.day.substring(0, el.day.indexOf('T'));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setActiveUpdate(false);
     dispatch(createDay(date, hours));
+    console.log(date);
   };
 
-  const deleteDayHandler = (el) => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    setActiveUpdate(false);
+  };
+
+  const deleteDayHandler = (id) => {
+    console.log(id);
+    dispatch(deleteDay(id));
+  };
+
+  const updateDayHandler = (el) => {
+    setActiveUpdate(true);
     console.log(el);
-    dispatch(deleteDay(el));
+    setDate(new Date(el.day).toISOString().split('T')[0]);
+    // formatDate(el)
+    setHours(el.hour);
   };
 
   const saveToMonths = () => {};
 
+  const checkDays = () => {
+    return days.some((el) => formatDate(el) == date);
+  };
+
   return (
     <div className='days'>
       <div>
-        <form className='create-day-form' onSubmit={handleSubmit}>
+        <form
+          className='create-day-form'
+          onSubmit={
+            !activeUpdate
+              ? handleSubmit
+              : checkDays()
+              ? handleUpdate
+              : handleSubmit
+          }
+        >
           <div className='label'>DATUM:</div>
-
           <input
             type='date'
             value={date}
+            required
             onChange={(e) => setDate(e.target.value)}
           />
-
           <div className='label'>HOURS:</div>
-
           <input
             type='number'
             value={hours}
+            required
             onChange={(e) => setHours(e.target.value)}
           />
-
-          <input type='submit' value='SUBMIT' />
+          <input
+            type='submit'
+            value={!activeUpdate ? 'SUBMIT' : checkDays() ? 'UPDATE' : 'SUBMIT'}
+          />
         </form>
       </div>
       <div>
@@ -65,10 +101,11 @@ const Days = () => {
                 return (
                   <DaysTableData
                     keyId={el.id}
-                    day={el.day.substring(0, el.day.indexOf('T'))}
+                    day={formatDate(el)}
                     hour={el.hour}
                     deleteHandler={() => deleteDayHandler(el.id)}
-                  />
+                    updateHandler={() => updateDayHandler(el)}
+                  ></DaysTableData>
                 );
               })}
           </DaysTable>

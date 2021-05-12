@@ -60,21 +60,11 @@
   }
 }
 
-// .days-collection {
-//   table {
-//     margin: 0 auto;
-//     width: 50%;
-//     thead {
-//       font-weight: bold;
-//     }
-//     tr {
-//       text-align: center;
-//     }
-//     td {
-//       padding: 0.4rem;
-//     }
-//   }
-// }
+.days-collection {
+  border: 2px solid black;
+  max-height: 45vh;
+  overflow: scroll;
+}
 
 .days-update {
   margin-right: 0.5rem;

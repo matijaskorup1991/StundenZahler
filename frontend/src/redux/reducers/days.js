@@ -22,6 +22,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         days: [...state.days, action.payload.day],
       };
+    case UPDATE_DAY:
+      return {
+        ...state,
+        days: state.days.map((el) =>
+          el.id == action.payload.id ? action.payload : el
+        ),
+      };
     case DELETE_DAY:
       return {
         ...state,

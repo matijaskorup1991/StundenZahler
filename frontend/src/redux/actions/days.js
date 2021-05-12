@@ -24,12 +24,25 @@ export const getAllDays = () => async (dispatch) => {
 
 export const createDay = (date, hours) => async (dispatch) => {
   try {
+    console.log(date);
     let { data } = await axios.post('/api/day/', { date, hours });
     console.log(JSON.stringify(data));
     dispatch({ type: CREATE_DAY, payload: data });
   } catch (error) {
     console.log(error);
     dispatch({ type: FAILURE });
+  }
+};
+
+export const updateDay = (id, date, hours) => async (dispatch) => {
+  try {
+    let { data } = await axios.put(`/api/day/${id}`, { date, hours });
+    dispatch({
+      type: UPDATE_DAY,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
 
