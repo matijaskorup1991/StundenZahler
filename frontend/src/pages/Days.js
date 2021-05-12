@@ -64,7 +64,7 @@ const Days = () => {
               days.map((el) => {
                 return (
                   <DaysTableData
-                    keyList={el.id}
+                    keyId={el.id}
                     day={el.day.substring(0, el.day.indexOf('T'))}
                     hour={el.hour}
                     deleteHandler={() => deleteDayHandler(el.id)}

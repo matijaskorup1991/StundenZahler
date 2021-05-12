@@ -1,9 +1,9 @@
 import React from 'react';
 
-const DaysTableData = ({ keyList, day, hour, deleteHandler }) => {
+const DaysTableData = ({ keyId, day, hour, deleteHandler }) => {
   return (
     <>
-      <tr key={keyList} className='days-to-save'>
+      <tr key={keyId} className='days-to-save'>
         <td> {day}</td>
         <td> {hour}</td>
         <td>
