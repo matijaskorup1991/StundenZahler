@@ -22,7 +22,7 @@ const getAllDays = asyncCall(async (req, res, next) => {
 const createDay = asyncCall(async (req, res, next) => {
   let { date, hours } = req.body;
 
-  if (!date || !hours) {
+  if (!date || hours < 0) {
     return next(new ErrorHandler('Please provide all Information!', 401));
   }
 

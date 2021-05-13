@@ -4,6 +4,7 @@ import {
   DELETE_MONTH,
   FAILURE,
   CREATE_MONTH,
+  LOGOUT,
 } from '../actionTypes';
 
 const initialState = {
@@ -17,7 +18,7 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_MONTHS:
       return {
         ...state,
-        months: [action.payload.months],
+        months: action.payload.months,
         count: action.payload.count,
       };
     case CREATE_MONTH:
@@ -31,10 +32,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         month: action.payload,
       };
+    case LOGOUT:
+      return {
+        ...state,
+        months: [],
+        count: 0,
+      };
     case FAILURE:
       return {
         ...state,
-        months: null,
+        months: [],
       };
     default:
       return state;
