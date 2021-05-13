@@ -1,0 +1,17 @@
+.months-search {
+  text-align: center;
+  padding-top: 4rem;
+  #search {
+    width: 40%;
+    text-align: center;
+    display: inline-block;
+    height: 3rem;
+    padding: 1rem;
+    border-radius: 3px;
+    transition: all 0.3s linear;
+    font-size: 1.8rem;
+  }
+  #search:focus {
+    border: 3px solid green;
+  }
+}
