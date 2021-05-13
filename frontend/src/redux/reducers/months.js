@@ -17,7 +17,8 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_MONTHS:
       return {
         ...state,
-        months: [action.payload],
+        months: [action.payload.months],
+        count: action.payload.count,
       };
     case CREATE_MONTH:
       return {

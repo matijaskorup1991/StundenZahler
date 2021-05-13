@@ -12,6 +12,8 @@ import {
 export const getAllMonths = () => async (dispatch) => {
   try {
     const { data } = await axios.get('/api/month/');
+    console.log(data.months);
+
     dispatch({
       type: GET_ALL_MONTHS,
       payload: data,
