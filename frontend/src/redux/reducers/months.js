@@ -9,6 +9,7 @@ import {
 const initialState = {
   months: [],
   month: null,
+  count: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +22,8 @@ const reducer = (state = initialState, action) => {
     case CREATE_MONTH:
       return {
         ...state,
-        months: [...state.months, action.payload],
+        months: [...state.months, action.payload.months],
+        count: action.payload.count,
       };
     case GET_MONTH:
       return {

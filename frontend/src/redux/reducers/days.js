@@ -10,6 +10,7 @@ import {
 
 const initialState = {
   days: [],
+  message: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +36,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         days: [],
+        message: action.payload.message,
       };
     case DELETE_DAY:
       return {

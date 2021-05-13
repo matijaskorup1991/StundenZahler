@@ -69,12 +69,7 @@ const updateDay = asyncCall(async (req, res, next) => {
 });
 
 const moveToMonth = asyncCall(async (req, res, next) => {
-  let userId = req.body.user_id;
-  console.log(userId);
-  if (!userId) {
-    return next(new ErrorHandler('Please provide all Information!', 401));
-  }
-  await db.query('delete from days where user_id=$1', [Number(userId)]);
+  await db.query('delete from days where user_id=$1', [req.user.id]);
 
   res.status(200).json({
     success: true,
