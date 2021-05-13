@@ -7,7 +7,7 @@ import {
 } from '../actionTypes';
 
 const initialState = {
-  months: null,
+  months: [],
   month: null,
 };
 
@@ -16,7 +16,12 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_MONTHS:
       return {
         ...state,
-        months: action.payload,
+        months: [action.payload],
+      };
+    case CREATE_MONTH:
+      return {
+        ...state,
+        months: [...state.months, action.payload],
       };
     case GET_MONTH:
       return {

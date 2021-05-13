@@ -31,6 +31,11 @@ const reducer = (state = initialState, action) => {
           el.id == action.payload.id ? action.payload : el
         ),
       };
+    case MOVE_DAYS_TO_MONTH:
+      return {
+        ...state,
+        days: [],
+      };
     case DELETE_DAY:
       return {
         ...state,

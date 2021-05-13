@@ -9,8 +9,6 @@ import {
   MOVE_DAYS_TO_MONTH,
 } from '../actionTypes';
 
-const { daysReducer } = store.getState();
-
 export const getAllMonths = () => async (dispatch) => {
   try {
     const { data } = await axios.get('/api/month/');
@@ -37,10 +35,17 @@ export const getMonth = (id) => async (dispatch) => {
   }
 };
 
-export const saveToMonth = (days) => async (dispatch) => {
+export const saveToMonth = (data) => async (dispatch) => {
+  let user_id = data[0].user_id;
   try {
-    let { data } = await axios.post('/api/month/', days);
-    dispatch({ type: CREATE_MONTH, payload: data });
+    let data1 = await axios.post('/api/month/', { data });
+    let data2 = await axios.delete('/api/day/move', { user_id });
+    dispatch({ type: CREATE_MONTH, payload: data1 });
+
+    dispatch({
+      type: MOVE_DAYS_TO_MONTH,
+      payload: data2,
+    });
   } catch (error) {
     console.log(error);
   }

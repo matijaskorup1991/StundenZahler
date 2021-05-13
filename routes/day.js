@@ -10,11 +10,9 @@ const {
   moveToMonth,
 } = require('../controller/day');
 
-router
-  .route('/')
-  .get(protect, getAllDays)
-  .post(protect, createDay)
-  .delete(protect, moveToMonth);
+router.route('/').get(protect, getAllDays).post(protect, createDay);
+router.route('/move').delete(protect, moveToMonth);
+
 router
   .route('/:id')
   .delete(protect, deleteDay)
