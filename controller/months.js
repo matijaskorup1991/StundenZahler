@@ -37,12 +37,10 @@ const createMonth = asyncCall(async (req, res, next) => {
     return next(new ErrorHandler('Please provide all information', 406));
   }
 
-  let {
-    rows,
-  } = await db.query('insert into months (data, user_id) values ($1,$2)', [
-    JSON.stringify(data),
-    req.user.id,
-  ]);
+  let { rows } = await db.query(
+    'insert into months (data, user_id) values ($1,$2) returning *',
+    [JSON.stringify(data), req.user.id]
+  );
 
   res.status(201).json({
     success: true,
@@ -51,11 +49,12 @@ const createMonth = asyncCall(async (req, res, next) => {
 });
 
 const deleteMonth = asyncCall(async (req, res, next) => {
-  await db.query('remove from months where id=$1', [req.params.id]);
+  await db.query('delete from months where id=$1', [req.params.id]);
 
   res.status(200).json({
     success: true,
     message: 'File deleted!',
+    id: req.params.id,
   });
 });
 

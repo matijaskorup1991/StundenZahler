@@ -78,10 +78,10 @@ const moveToMonth = asyncCall(async (req, res, next) => {
 });
 
 const deleteDay = asyncCall(async (req, res, next) => {
-  let month = await db.query('delete from days where id=$1', [req.params.id]);
   if (!req.params.id) {
     return next(new ErrorHandler('File not found!', 404));
   }
+  let day = await db.query('delete from days where id=$1', [req.params.id]);
 
   res.status(200).json({
     success: true,

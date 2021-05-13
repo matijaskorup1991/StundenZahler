@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllMonths } from '../redux/actions/months';
+import { getAllMonths, deleteMonth } from '../redux/actions/months';
 import { useDispatch, useSelector } from 'react-redux';
 import MonthHolder from '../components/MonthHolder';
 import '../styles/months.scss';
@@ -7,23 +7,52 @@ import '../styles/months.scss';
 const Months = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.monthsReducer);
-
-  const [term, setTerm] = useState('');
-  useEffect(() => {
-    dispatch(getAllMonths());
-  }, []);
-
   const { months } = data;
 
-  console.log(months);
+  const [term, setTerm] = useState('');
+  const [count, setCount] = useState(false);
 
-  const renderMonths = months.map((el) => {
-    return (
-      <MonthHolder
-        date={el.created_at.substring(0, el.created_at.lastIndexOf('-'))}
-      />
-    );
-  });
+  const handleDelete = (id) => {
+    setCount(!count);
+    dispatch(deleteMonth(id));
+  };
+
+  useEffect(() => {
+    dispatch(getAllMonths());
+  }, [count]);
+
+  const formatDate = (el) =>
+    el.created_at.substring(0, el.created_at.lastIndexOf('-'));
+
+  const renderMonths = months ? (
+    months.map((el) => {
+      return (
+        <MonthHolder
+          keyId={el.id}
+          date={formatDate(el)}
+          deleteHandler={() => handleDelete(el.id)}
+        />
+      );
+    })
+  ) : (
+    <h1>Nothing to show yet!</h1>
+  );
+
+  const filteredMonths = months.filter((el) => el.created_at.includes(term));
+
+  const showFilteredMonths = months ? (
+    filteredMonths.map((el) => {
+      return (
+        <MonthHolder
+          keyId={el.id}
+          date={formatDate(el)}
+          deleteHandler={() => handleDelete(el.id)}
+        />
+      );
+    })
+  ) : (
+    <h1>Nothing to show yet!</h1>
+  );
 
   return (
     <div>
@@ -36,7 +65,9 @@ const Months = () => {
           placeholder='Search By Date'
         />
       </div>
-      <div className='months-content'>{months ? renderMonths : null}</div>
+      <div className='months-content'>
+        {term ? showFilteredMonths : renderMonths}
+      </div>
     </div>
   );
 };

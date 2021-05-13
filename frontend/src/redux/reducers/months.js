@@ -24,13 +24,18 @@ const reducer = (state = initialState, action) => {
     case CREATE_MONTH:
       return {
         ...state,
-        months: [...state.months, action.payload.months],
+        months: [...state.months, action.payload],
         count: action.payload.count,
       };
     case GET_MONTH:
       return {
         ...state,
         month: action.payload,
+      };
+    case DELETE_MONTH:
+      return {
+        ...state,
+        months: state.months.filter((el) => el.id !== action.payload.id),
       };
     case LOGOUT:
       return {

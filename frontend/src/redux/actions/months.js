@@ -42,11 +42,23 @@ export const saveToMonth = (data) => async (dispatch) => {
   try {
     let data1 = await axios.post('/api/month/', { data });
     let data2 = await axios.delete('/api/day/move', { user_id });
-    dispatch({ type: CREATE_MONTH, payload: data1 });
-
+    dispatch({ type: CREATE_MONTH, payload: data1.data.data });
+    console.log(data1.data.data);
     dispatch({
       type: MOVE_DAYS_TO_MONTH,
       payload: data2,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteMonth = (id) => async (dispatch) => {
+  try {
+    let { data } = await axios.delete(`/api/month/${id}`);
+    dispatch({
+      type: DELETE_MONTH,
+      payload: data,
     });
   } catch (error) {
     console.log(error);
