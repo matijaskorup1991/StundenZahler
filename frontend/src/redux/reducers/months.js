@@ -3,6 +3,7 @@ import {
   GET_MONTH,
   DELETE_MONTH,
   FAILURE,
+  CREATE_MONTH,
 } from '../actionTypes';
 
 const initialState = {

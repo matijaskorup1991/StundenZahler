@@ -1,10 +1,15 @@
 import axios from 'axios';
+import store from '../store';
 import {
   GET_ALL_MONTHS,
   GET_MONTH,
   DELETE_MONTH,
   FAILURE,
+  CREATE_MONTH,
+  MOVE_DAYS_TO_MONTH,
 } from '../actionTypes';
+
+const { daysReducer } = store.getState();
 
 export const getAllMonths = () => async (dispatch) => {
   try {
@@ -32,7 +37,11 @@ export const getMonth = (id) => async (dispatch) => {
   }
 };
 
-export const saveToMonth = () => (dispatch) => {
+export const saveToMonth = (days) => async (dispatch) => {
   try {
-  } catch (error) {}
+    let { data } = await axios.post('/api/month/', days);
+    dispatch({ type: CREATE_MONTH, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
 };

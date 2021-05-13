@@ -16,3 +16,5 @@ export const CLEAR_DAYS = 'CLEAR_DAYS';
 export const GET_ALL_MONTHS = 'GET_ALL_MONTHS';
 export const GET_MONTH = 'GET_MONTH';
 export const DELETE_MONTH = 'DELETE_MONTH';
+export const CREATE_MONTH = 'CREATE_MONTH';
+export const MOVE_DAYS_TO_MONTH = 'MOVE_DAYS_TO_MONTH';

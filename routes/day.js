@@ -7,9 +7,14 @@ const {
   updateDay,
   deleteDay,
   createDay,
+  moveToMonth,
 } = require('../controller/day');
 
-router.route('/').get(protect, getAllDays).post(protect, createDay);
+router
+  .route('/')
+  .get(protect, getAllDays)
+  .post(protect, createDay)
+  .delete(protect, moveToMonth);
 router
   .route('/:id')
   .delete(protect, deleteDay)

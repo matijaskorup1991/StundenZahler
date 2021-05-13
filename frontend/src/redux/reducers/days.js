@@ -5,6 +5,7 @@ import {
   DELETE_DAY,
   LOGOUT,
   CLEAR_DAYS,
+  MOVE_DAYS_TO_MONTH,
 } from '../actionTypes';
 
 const initialState = {

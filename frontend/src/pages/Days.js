@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getAllDays } from '../redux/actions/days';
 import { useDispatch, useSelector } from 'react-redux';
 import { createDay, deleteDay, updateDay } from '../redux/actions/days';
+import { saveToMonth } from '../redux/actions/months';
 import DaysTable from '../components/DaysTable';
 import DaysTableData from '../components/DaysTableData';
 
@@ -53,7 +54,7 @@ const Days = () => {
   };
 
   const saveToMonths = () => {
-    dispatch();
+    dispatch(saveToMonth(days));
   };
 
   const checkDays = () => {
