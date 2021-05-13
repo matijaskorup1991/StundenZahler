@@ -5,6 +5,7 @@ import {
   UPDATE_DAY,
   DELETE_DAY,
   FAILURE,
+  CLEAR_DAYS,
 } from '../actionTypes';
 
 export const getAllDays = () => async (dispatch) => {
@@ -53,4 +54,8 @@ export const deleteDay = (id) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const clearDays = () => (dispatch) => {
+  dispatch({ type: CLEAR_DAYS });
 };

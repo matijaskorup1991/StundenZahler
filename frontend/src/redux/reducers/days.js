@@ -4,6 +4,7 @@ import {
   UPDATE_DAY,
   DELETE_DAY,
   LOGOUT,
+  CLEAR_DAYS,
 } from '../actionTypes';
 
 const initialState = {
@@ -33,6 +34,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         days: state.days.filter((el) => el.id !== action.payload),
+      };
+    case CLEAR_DAYS:
+      return {
+        ...state,
+        days: [],
       };
     case LOGOUT:
       return {

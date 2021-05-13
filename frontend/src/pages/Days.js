@@ -37,6 +37,7 @@ const Days = () => {
     dispatch(updateDay(idToUpdate, date, hours));
     setActiveUpdate(false);
     setIdToUpdate('');
+    setDate('');
   };
 
   const deleteDayHandler = (id) => {
@@ -51,7 +52,9 @@ const Days = () => {
     setIdToUpdate(el.id);
   };
 
-  const saveToMonths = () => {};
+  const saveToMonths = () => {
+    dispatch();
+  };
 
   const checkDays = () => {
     return days.some((el) => formatDate(el) == date);

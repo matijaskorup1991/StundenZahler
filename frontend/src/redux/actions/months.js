@@ -32,4 +32,7 @@ export const getMonth = (id) => async (dispatch) => {
   }
 };
 
-export const saveToMonth = () => {};
+export const saveToMonth = () => (dispatch) => {
+  try {
+  } catch (error) {}
+};
