@@ -26,6 +26,7 @@ const Months = () => {
     months.map((el) => {
       return (
         <MonthHolder
+          linkTo={`/months/${el.id}`}
           keyId={el.id}
           date={formatDate(el)}
           deleteHandler={() => handleDelete(el.id)}

@@ -26,7 +26,12 @@ export const getAllMonths = () => async (dispatch) => {
 
 export const getMonth = (id) => async (dispatch) => {
   try {
-    let { data } = axios.get(`/api/month/${id}`);
+    let {
+      data: {
+        data: { data },
+      },
+    } = await axios.get(`/api/month/${id}`);
+    console.log(data);
     dispatch({
       type: GET_MONTH,
       payload: data,
@@ -43,7 +48,6 @@ export const saveToMonth = (data) => async (dispatch) => {
     let data1 = await axios.post('/api/month/', { data });
     let data2 = await axios.delete('/api/day/move', { user_id });
     dispatch({ type: CREATE_MONTH, payload: data1.data.data });
-    console.log(data1.data.data);
     dispatch({
       type: MOVE_DAYS_TO_MONTH,
       payload: data2,
