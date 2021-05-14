@@ -59,7 +59,7 @@ export const deleteMonth = (id) => async (dispatch) => {
     console.log(data);
     dispatch({
       type: DELETE_MONTH,
-      payload: data,
+      payload: data.id,
     });
   } catch (error) {
     console.log(error);

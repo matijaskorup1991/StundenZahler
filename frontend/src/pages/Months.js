@@ -10,10 +10,8 @@ const Months = () => {
   const { months } = data;
 
   const [term, setTerm] = useState('');
-  const [count, setCount] = useState(false);
 
   const handleDelete = (id) => {
-    setCount(!count);
     dispatch(deleteMonth(id));
   };
 

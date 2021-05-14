@@ -54,6 +54,7 @@ const Days = () => {
   };
 
   const saveToMonths = () => {
+    if (days.length == 0 || days.length > 31) return;
     if (window.confirm('Are you sure? This cannot be undone')) {
       dispatch(saveToMonth(days));
     }
