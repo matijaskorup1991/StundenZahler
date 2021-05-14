@@ -21,7 +21,7 @@ const Days = () => {
 
   useEffect(() => {
     dispatch(getAllDays());
-  }, [activeUpdate]);
+  }, [dispatch]);
 
   const formatDate = (el) => {
     return new Date(el.day).toISOString().split('T')[0];

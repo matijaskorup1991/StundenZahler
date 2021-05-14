@@ -56,6 +56,7 @@ export const saveToMonth = (data) => async (dispatch) => {
 export const deleteMonth = (id) => async (dispatch) => {
   try {
     let { data } = await axios.delete(`/api/month/${id}`);
+    console.log(data);
     dispatch({
       type: DELETE_MONTH,
       payload: data,

@@ -19,7 +19,7 @@ const Months = () => {
 
   useEffect(() => {
     dispatch(getAllMonths());
-  }, [count]);
+  }, [dispatch]);
 
   const formatDate = (el) =>
     el.created_at.substring(0, el.created_at.lastIndexOf('-'));

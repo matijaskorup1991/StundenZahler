@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_MONTH:
       return {
         ...state,
-        months: state.months.filter((el) => el.id !== action.payload.id),
+        months: state.months.filter((el) => el.id != action.payload),
       };
     case LOGOUT:
       return {
