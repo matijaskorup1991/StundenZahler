@@ -27,9 +27,7 @@ export const getAllMonths = () => async (dispatch) => {
 export const getMonth = (id) => async (dispatch) => {
   try {
     let {
-      data: {
-        data: { data },
-      },
+      data: { data },
     } = await axios.get(`/api/month/${id}`);
     console.log(data);
     dispatch({
