@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   months: [],
-  month: [],
+  month: null,
   count: 0,
 };
 

@@ -21,7 +21,7 @@ const Month = ({ match }) => {
     return new Date(el.day).toISOString().split('T')[0];
   };
 
-  const renderDays = month.length
+  const renderDays = month
     ? month.data.map((el) => {
         return (
           <tr>
@@ -47,37 +47,15 @@ const Month = ({ match }) => {
     'December',
   ];
 
-  const exportPDF = () => {
-    const unit = 'pt';
-    const size = 'A4';
-    const orientation = 'portrait';
-
-    const marginLeft = 40;
-    const doc = new jsPDF(orientation, unit, size);
-
-    doc.setFontSize(15);
-
-    const title = user && user.username;
-    const headers = [['DATUM', 'STUNDEN']];
-
-    const data = month.length
-      ? month.data.map((el) => [formatDate(el), el.hour])
-      : null;
-
-    let content = {
-      startY: 50,
-      head: headers,
-      body: data,
-    };
-
-    doc.text(title, marginLeft, 40);
-    doc.autoTable(content);
-    doc.save('report.pdf');
+  const downloadProgres = () => {
+    const doc = new jsPDF();
+    doc.autoTable({ html: '#hours-table' });
+    doc.save('table.pdf');
   };
 
   return (
     <div className='month'>
-      <table>
+      <table id='hours-table'>
         <thead>
           <tr>
             <th>{user ? user.username : 'Neradi'}</th>
@@ -99,7 +77,7 @@ const Month = ({ match }) => {
           </tr>
         </tbody>
       </table>
-      <button onClick={() => exportPDF()}>DOWNLOAD</button>
+      <button onClick={() => downloadProgres()}>DOWNLOAD</button>
     </div>
   );
 };
