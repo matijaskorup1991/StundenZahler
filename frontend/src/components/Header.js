@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
@@ -8,12 +8,20 @@ import '../styles/header.scss';
 const Header = () => {
   const history = useHistory();
 
+  const [sideNav, setSideNav] = useState(false);
+
+  // useEffect(() => {}, [sideNav]);
+
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userReducer);
   const { user } = userInfo;
   const logoutUser = () => {
     dispatch(logout());
     history.push('/');
+  };
+
+  const openSideNav = () => {
+    setSideNav(!sideNav);
   };
 
   return (
@@ -33,7 +41,10 @@ const Header = () => {
           <div onClick={logoutUser}>Logout</div>
         </div>
       </div>
-      <div className='hamburger'>
+      <div
+        className={sideNav ? 'hamburger change-hamburger' : 'hamburger'}
+        onClick={openSideNav}
+      >
         <div></div>
         <div></div>
         <div></div>
