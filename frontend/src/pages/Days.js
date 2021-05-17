@@ -42,7 +42,6 @@ const Days = () => {
   };
 
   const deleteDayHandler = (id) => {
-    console.log(id);
     dispatch(deleteDay(id));
   };
 

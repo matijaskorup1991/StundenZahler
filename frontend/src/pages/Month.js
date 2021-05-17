@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { getMonth } from '../redux/actions/months';
+import Loader from '../components/Loader';
 import '../styles/month.scss';
 
 const Month = ({ match }) => {
@@ -21,16 +21,18 @@ const Month = ({ match }) => {
     return new Date(el.day).toISOString().split('T')[0];
   };
 
-  const renderDays = month
-    ? month.data.map((el) => {
-        return (
-          <tr>
-            <td>{formatDate(el)}</td>
-            <td>{el.hour}</td>
-          </tr>
-        );
-      })
-    : null;
+  const renderDays = month ? (
+    month.data.map((el) => {
+      return (
+        <tr key={el.id}>
+          <td>{formatDate(el)}</td>
+          <td>{el.hour}</td>
+        </tr>
+      );
+    })
+  ) : (
+    <Loader />
+  );
 
   let months = [
     'January',
@@ -77,7 +79,9 @@ const Month = ({ match }) => {
           </tr>
         </tbody>
       </table>
-      <button onClick={() => downloadProgres()}>DOWNLOAD</button>
+      <div className='download-button'>
+        <button onClick={() => downloadProgres()}>DOWNLOAD</button>
+      </div>
     </div>
   );
 };

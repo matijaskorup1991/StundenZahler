@@ -10,4 +10,18 @@
       padding: 0.6rem;
     }
   }
+  .download-button {
+    text-align: center;
+    margin-top: 20px;
+    button {
+      padding: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s linear;
+    }
+    button:hover {
+      background-color: black;
+      color: white;
+    }
+  }
 }
