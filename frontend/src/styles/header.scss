@@ -5,6 +5,11 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  position: relative;
+
+  .hamburger {
+    display: none;
+  }
   div {
     display: flex;
     width: 40%;
@@ -27,5 +32,63 @@
     div:hover {
       font-weight: bold;
     }
+  }
+}
+
+.hamburger {
+  width: 30px;
+  background-color: #fff;
+  height: 30px;
+  display: none;
+  transition: all 0.3s linear;
+  div {
+    height: 3px;
+    background-color: black;
+  }
+}
+
+.change-hamburger {
+  div:nth-of-type(1) {
+    transform: rotate(45deg);
+    position: relative;
+    top: 10px;
+  }
+  div:nth-of-type(2) {
+    transform: rotate(-45deg);
+  }
+  div:nth-of-type(3) {
+    background-color: white;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    div {
+      display: flex;
+      width: 60%;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    display: block;
+    h2 {
+      display: inline-block;
+    }
+    div {
+      display: none;
+    }
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 40px;
+    position: absolute;
+    top: 15px;
+    right: 3rem;
+    cursor: pointer;
   }
 }

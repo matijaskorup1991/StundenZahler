@@ -17,21 +17,28 @@ const Header = () => {
   };
 
   return (
-    <div className='header'>
-      <h2>{user.username}</h2>
-      <div>
-        <NavLink activeStyle={{ color: 'red' }} to='/home'>
-          Home
-        </NavLink>
-        <NavLink activeStyle={{ color: 'red' }} to='/months'>
-          My Months
-        </NavLink>
-        <NavLink activeStyle={{ color: 'red' }} to='/days'>
-          Add Work Day
-        </NavLink>
-        <div onClick={logoutUser}>Logout</div>
+    <>
+      <div className='header'>
+        <h2>{user.username}</h2>
+        <div classList='header-nav-links'>
+          <NavLink activeStyle={{ color: 'red' }} to='/home'>
+            Home
+          </NavLink>
+          <NavLink activeStyle={{ color: 'red' }} to='/months'>
+            My Months
+          </NavLink>
+          <NavLink activeStyle={{ color: 'red' }} to='/days'>
+            Add Work Day
+          </NavLink>
+          <div onClick={logoutUser}>Logout</div>
+        </div>
       </div>
-    </div>
+      <div className='hamburger'>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </>
   );
 };
 

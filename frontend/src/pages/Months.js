@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllMonths, deleteMonth } from '../redux/actions/months';
 import { useDispatch, useSelector } from 'react-redux';
 import MonthHolder from '../components/MonthHolder';
+import Loader from '../components/Loader';
 import '../styles/months.scss';
 
 const Months = () => {
@@ -34,7 +35,7 @@ const Months = () => {
       );
     })
   ) : (
-    <h1>Nothing to show yet!</h1>
+    <Loader />
   );
 
   const filteredMonths = months.filter((el) => el.created_at.includes(term));
@@ -50,7 +51,7 @@ const Months = () => {
       );
     })
   ) : (
-    <h1>Nothing to show yet!</h1>
+    <Loader />
   );
 
   return (
