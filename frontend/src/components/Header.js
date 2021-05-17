@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../redux/actions/user';
+import SideNav from './SideNav';
 import '../styles/header.scss';
 
 const Header = () => {
@@ -49,6 +50,10 @@ const Header = () => {
         <div></div>
         <div></div>
       </div>
+      <SideNav
+        classes={sideNav ? 'side-nav side-nav-show' : 'side-nav'}
+        onClick={logoutUser}
+      />
     </>
   );
 };

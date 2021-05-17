@@ -12,6 +12,7 @@ html {
 }
 
 #root {
+  position: relative;
   overflow-x: hidden;
 }
 

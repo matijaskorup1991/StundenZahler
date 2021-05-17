@@ -1,0 +1,38 @@
+.side-nav {
+  position: absolute;
+  top: 10vh;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
+  background-color: white;
+  transition: all 0.3s linear;
+  transform: translateX(100%);
+  z-index: 10;
+
+  right: 0;
+  ul {
+    list-style: none;
+    width: 250px;
+    li {
+      padding: 1rem;
+      text-align: center;
+    }
+  }
+  a {
+    font-size: 1.5rem;
+  }
+  a:hover {
+    font-weight: bold;
+  }
+  div {
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  div:hover {
+    font-weight: bold;
+  }
+}
+
+.side-nav-show {
+  transform: translateX(0);
+}
