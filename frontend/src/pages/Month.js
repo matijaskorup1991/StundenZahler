@@ -49,6 +49,10 @@ const Month = ({ match }) => {
     'December',
   ];
 
+  const gesamteStunden = month
+    ? month.data.reduce((a, b) => a + b.hour, 0)
+    : null;
+
   const downloadProgres = () => {
     const doc = new jsPDF();
     doc.autoTable({ html: '#hours-table' });
@@ -75,7 +79,7 @@ const Month = ({ match }) => {
           {renderDays}
           <tr>
             <td>GESAMTE STUNDEN:</td>
-            <td>50</td>
+            <td>{gesamteStunden}</td>
           </tr>
         </tbody>
       </table>
