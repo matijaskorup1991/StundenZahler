@@ -1,6 +1,7 @@
 export const SUCCESS = 'SUCCESS';
 export const FAILURE = 'FAILURE';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const SET_ALERT = 'SET_ALERT';
 
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';

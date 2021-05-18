@@ -5,6 +5,7 @@ import { createDay, deleteDay, updateDay } from '../redux/actions/days';
 import { saveToMonth } from '../redux/actions/months';
 import DaysTable from '../components/DaysTable';
 import DaysTableData from '../components/DaysTableData';
+import { alert } from '../redux/actions/alert';
 
 import '../styles/days.scss';
 
@@ -53,7 +54,10 @@ const Days = () => {
   };
 
   const saveToMonths = () => {
-    if (days.length == 0 || days.length > 31) return;
+    if (days.length == 0) {
+      dispatch(alert('test', 'alert'));
+    }
+    if (days.length > 31) return;
     if (window.confirm('Are you sure? This cannot be undone')) {
       dispatch(saveToMonth(days));
     }

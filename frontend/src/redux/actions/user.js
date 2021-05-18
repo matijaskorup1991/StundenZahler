@@ -43,9 +43,11 @@ export const login = (email, password, history) => async (dispatch) => {
     sessionStorage.setItem('user', JSON.stringify(data));
     history.push('/home');
   } catch (error) {
-    console.log(error);
-    console.log(error.response);
-    dispatch({ type: USER_FAILURE });
+    dispatch({
+      type: USER_FAILURE,
+      payload: error.response ? error.response.data.message : error,
+    });
+    setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);
   }
 };
 

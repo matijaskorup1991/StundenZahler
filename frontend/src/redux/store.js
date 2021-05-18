@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import userReducer from './reducers/userReducer';
 import daysReducer from './reducers/days';
 import monthsReducer from './reducers/months';
+import alertReducer from './reducers/alert';
 
 const userDataFromStorage = sessionStorage.getItem('user')
   ? JSON.parse(sessionStorage.getItem('user'))
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   userReducer,
   daysReducer,
   monthsReducer,
+  alertReducer,
 });
 
 const store = createStore(
