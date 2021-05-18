@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { register } from '../redux/actions/user';
 import Form from '../components/Form';
+import ErrorMessage from '../components/ErrorMessage';
 import '../styles/register.scss';
 
 const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const userData = useSelector((state) => state.userReducer);
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -17,11 +19,17 @@ const Register = () => {
 
   const registerUser = (e) => {
     e.preventDefault();
+    console.log(userData.error);
     dispatch(register(username, email, password, history));
   };
 
+  let errorMessage = userData.error ? (
+    <ErrorMessage classMsg='alert' message={userData.error} />
+  ) : null;
+
   return (
     <div className='register-page'>
+      {errorMessage}
       <Form onSubmit={registerUser} formHeading='CREATE ACCOUNT'>
         <input
           type='text'

@@ -5,6 +5,7 @@ import {
   LOGOUT,
   USER_FAILURE,
   DELETE_PROFILE,
+  REMOVE_ALERT,
 } from '../actionTypes';
 
 export const register =
@@ -23,10 +24,11 @@ export const register =
       sessionStorage.setItem('user', JSON.stringify(data));
       history.push('/home');
     } catch (error) {
-      console.log(error.response.data.message);
       dispatch({
         type: USER_FAILURE,
+        payload: error.response ? error.response.data.message : error,
       });
+      setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);
     }
   };
 

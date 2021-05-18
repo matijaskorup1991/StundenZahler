@@ -1,4 +1,10 @@
-import { REGISTER, USER_FAILURE, LOGIN, LOGOUT } from '../actionTypes';
+import {
+  REGISTER,
+  USER_FAILURE,
+  LOGIN,
+  LOGOUT,
+  REMOVE_ALERT,
+} from '../actionTypes';
 
 const initialState = {
   user: null,
@@ -27,6 +33,11 @@ const reducer = (state = initialState, action) => {
       return {
         user: null,
         error: action.payload,
+      };
+    case REMOVE_ALERT:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

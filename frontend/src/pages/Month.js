@@ -67,7 +67,7 @@ const Month = ({ match }) => {
             <th>{user ? user.username : 'Neradi'}</th>
             <th>
               Monat:{' '}
-              {month ? months[new Date(month.created_at).getMonth()] : null}
+              {month ? months[new Date(month.created_at).getMonth()] : ''}
             </th>
           </tr>
         </thead>
