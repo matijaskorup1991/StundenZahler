@@ -6,6 +6,8 @@ import {
   LOGOUT,
   CLEAR_DAYS,
   MOVE_DAYS_TO_MONTH,
+  DELETE_MESSAGE,
+  CLEAR_MESSAGE,
 } from '../actionTypes';
 
 const initialState = {
@@ -37,6 +39,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         days: [],
         message: action.payload.data.message,
+      };
+    case DELETE_MESSAGE:
+      return {
+        ...state,
+        message: action.payload,
+      };
+    case CLEAR_MESSAGE:
+      return {
+        ...state,
+        message: null,
       };
     case DELETE_DAY:
       return {

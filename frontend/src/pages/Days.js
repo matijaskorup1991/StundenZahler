@@ -6,6 +6,7 @@ import { saveToMonth } from '../redux/actions/months';
 import DaysTable from '../components/DaysTable';
 import DaysTableData from '../components/DaysTableData';
 import { alert } from '../redux/actions/alert';
+import ErrorMessage from '../components/ErrorMessage';
 
 import '../styles/days.scss';
 
@@ -14,6 +15,7 @@ const Days = () => {
 
   const data = useSelector((state) => state.daysReducer);
   const { days } = data;
+  const alertData = useSelector((state) => state.alertReducer);
 
   const [date, setDate] = useState('');
   const [hours, setHours] = useState(0);
@@ -55,9 +57,11 @@ const Days = () => {
 
   const saveToMonths = () => {
     if (days.length == 0) {
-      dispatch(alert('test', 'alert'));
+      return dispatch(alert('Please enter at least one day!'));
     }
-    if (days.length > 31) return;
+    if (days.length > 31) {
+      return dispatch(alert('You cannot add more than 31 days!'));
+    }
     if (window.confirm('Are you sure? This cannot be undone')) {
       dispatch(saveToMonth(days));
     }
@@ -67,9 +71,20 @@ const Days = () => {
     return days.some((el) => formatDate(el) == date);
   };
 
+  const userMessage = alertData.message && (
+    <ErrorMessage classMsg='alert' message={alertData.message} />
+  );
+
+  const deleteMessage = data.message && (
+    <ErrorMessage classMsg='alert' message={data.message} />
+  );
+
+  console.log(data);
   return (
     <div className='days'>
       <div>
+        {userMessage}
+        {deleteMessage}
         <form
           className='create-day-form'
           onSubmit={

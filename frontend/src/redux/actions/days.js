@@ -6,6 +6,8 @@ import {
   DELETE_DAY,
   FAILURE,
   CLEAR_DAYS,
+  DELETE_MESSAGE,
+  CLEAR_MESSAGE,
 } from '../actionTypes';
 
 export const getAllDays = () => async (dispatch) => {
@@ -39,7 +41,7 @@ export const updateDay = (id, date, hours) => async (dispatch) => {
     let { data } = await axios.put(`/api/day/${id}`, { date, hours });
     dispatch({
       type: UPDATE_DAY,
-      payload: data,
+      payload: data.message,
     });
   } catch (error) {
     console.log(error);
@@ -51,6 +53,8 @@ export const deleteDay = (id) => async (dispatch) => {
     let { data } = await axios.delete(`/api/day/${id}`);
     console.log(data);
     dispatch({ type: DELETE_DAY, payload: id });
+    dispatch({ type: DELETE_MESSAGE, payload: data.message });
+    setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
   } catch (error) {
     console.log(error);
   }
