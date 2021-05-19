@@ -10,7 +10,7 @@ import '../styles/register.scss';
 const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const userData = useSelector((state) => state.userReducer);
+  const errorMessage = useSelector((state) => state.alertReducer);
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -19,17 +19,16 @@ const Register = () => {
 
   const registerUser = (e) => {
     e.preventDefault();
-    console.log(userData.error);
     dispatch(register(username, email, password, history));
   };
 
-  let errorMessage = userData.error ? (
-    <ErrorMessage classMsg='alert' message={userData.error} />
+  let errorMsg = errorMessage.message ? (
+    <ErrorMessage classMsg='alert' message={errorMessage.message} />
   ) : null;
 
   return (
     <div className='register-page'>
-      {errorMessage}
+      {errorMsg}
       <Form onSubmit={registerUser} formHeading='CREATE ACCOUNT'>
         <input
           type='text'

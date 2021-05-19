@@ -7,7 +7,9 @@ import {
   FAILURE,
   CREATE_MONTH,
   MOVE_DAYS_TO_MONTH,
+  REMOVE_ALERT,
 } from '../actionTypes';
+import { errorResponse, alert } from './alert';
 
 export const getAllMonths = () => async (dispatch) => {
   try {
@@ -19,8 +21,8 @@ export const getAllMonths = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error.response);
-    dispatch({ type: FAILURE });
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 
@@ -35,8 +37,8 @@ export const getMonth = (id) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error.response);
-    dispatch({ type: FAILURE });
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 
@@ -50,8 +52,10 @@ export const saveToMonth = (data) => async (dispatch) => {
       type: MOVE_DAYS_TO_MONTH,
       payload: data2,
     });
+    setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);
   } catch (error) {
-    console.log(error);
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 
@@ -63,7 +67,9 @@ export const deleteMonth = (id) => async (dispatch) => {
       type: DELETE_MONTH,
       payload: data.id,
     });
+    errorResponse(data.message, dispatch);
   } catch (error) {
-    console.log(error);
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };

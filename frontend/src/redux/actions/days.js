@@ -8,7 +8,9 @@ import {
   CLEAR_DAYS,
   DELETE_MESSAGE,
   CLEAR_MESSAGE,
+  DAY_FAILURE,
 } from '../actionTypes';
+import { errorResponse } from './alert';
 
 export const getAllDays = () => async (dispatch) => {
   try {
@@ -19,9 +21,8 @@ export const getAllDays = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
-    console.log(error.response);
-    dispatch({ type: FAILURE });
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 
@@ -31,8 +32,8 @@ export const createDay = (date, hours) => async (dispatch) => {
     let { data } = await axios.post('/api/day/', { date, hours });
     dispatch({ type: CREATE_DAY, payload: data });
   } catch (error) {
-    console.log(error);
-    dispatch({ type: FAILURE });
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 
@@ -44,7 +45,8 @@ export const updateDay = (id, date, hours) => async (dispatch) => {
       payload: data.message,
     });
   } catch (error) {
-    console.log(error);
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 
@@ -56,7 +58,8 @@ export const deleteDay = (id) => async (dispatch) => {
     dispatch({ type: DELETE_MESSAGE, payload: data.message });
     setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
   } catch (error) {
-    console.log(error);
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 

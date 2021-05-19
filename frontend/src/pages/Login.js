@@ -9,7 +9,7 @@ import ErrorMessage from '../components/ErrorMessage';
 const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const userData = useSelector((state) => state.userReducer);
+  const errorMessage = useSelector((state) => state.alertReducer);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,13 +19,13 @@ const Login = () => {
     dispatch(login(email, password, history));
   };
 
-  let errorMessage = userData.error && (
-    <ErrorMessage classMsg='alert' message={userData.error} />
+  let errorMsg = errorMessage.message && (
+    <ErrorMessage classMsg='alert' message={errorMessage.message} />
   );
 
   return (
     <div className='register-page'>
-      {errorMessage}
+      {errorMsg}
       <Form formHeading='LOGIN' onSubmit={handleSubmit}>
         <input
           type='email'

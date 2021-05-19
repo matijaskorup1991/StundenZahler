@@ -9,3 +9,11 @@ export const alert =
     });
     setTimeout(() => dispatch({ type: REMOVE_ALERT }), timeout);
   };
+
+export const errorResponse = (err, dispatch) => {
+  dispatch({
+    type: SET_ALERT,
+    payload: err,
+  });
+  setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);
+};

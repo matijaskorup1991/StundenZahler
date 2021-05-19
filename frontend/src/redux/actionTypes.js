@@ -16,6 +16,7 @@ export const UPDATE_DAY = 'UPDATE_DAY';
 export const CLEAR_DAYS = 'CLEAR_DAYS';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
+export const DAY_FAILURE = 'DAY_FAILURE';
 
 export const GET_ALL_MONTHS = 'GET_ALL_MONTHS';
 export const GET_MONTH = 'GET_MONTH';

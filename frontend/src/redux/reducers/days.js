@@ -3,6 +3,7 @@ import {
   CREATE_DAY,
   UPDATE_DAY,
   DELETE_DAY,
+  REMOVE_ALERT,
   LOGOUT,
   CLEAR_DAYS,
   MOVE_DAYS_TO_MONTH,
@@ -46,6 +47,7 @@ const reducer = (state = initialState, action) => {
         message: action.payload,
       };
     case CLEAR_MESSAGE:
+    case REMOVE_ALERT:
       return {
         ...state,
         message: null,

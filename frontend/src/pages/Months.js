@@ -3,11 +3,14 @@ import { getAllMonths, deleteMonth } from '../redux/actions/months';
 import { useDispatch, useSelector } from 'react-redux';
 import MonthHolder from '../components/MonthHolder';
 import Loader from '../components/Loader';
+import ErrorMessage from '../components/ErrorMessage';
 import '../styles/months.scss';
 
 const Months = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.monthsReducer);
+  const errorMessage = useSelector((state) => state.alertReducer);
+
   const { months } = data;
 
   const [term, setTerm] = useState('');
@@ -54,9 +57,14 @@ const Months = () => {
     <Loader />
   );
 
+  let alertMsg = errorMessage.message && (
+    <ErrorMessage classMsg='alert' message={errorMessage.message} />
+  );
+
   return (
     <div>
       <div className='months-search'>
+        {alertMsg}
         <input
           id='search'
           type='text'

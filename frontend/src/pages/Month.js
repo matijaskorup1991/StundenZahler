@@ -12,8 +12,7 @@ const Month = ({ match }) => {
   const userData = useSelector((state) => state.userReducer);
   const { month } = data;
   const { user } = userData;
-  console.log(user.username);
-  console.log(month);
+
   useEffect(() => {
     dispatch(getMonth(match.params.id));
   }, []);

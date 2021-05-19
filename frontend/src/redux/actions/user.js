@@ -7,6 +7,7 @@ import {
   DELETE_PROFILE,
   REMOVE_ALERT,
 } from '../actionTypes';
+import { alert, errorResponse } from '../actions/alert';
 
 export const register =
   (username, email, password, history) => async (dispatch) => {
@@ -24,11 +25,8 @@ export const register =
       sessionStorage.setItem('user', JSON.stringify(data));
       history.push('/home');
     } catch (error) {
-      dispatch({
-        type: USER_FAILURE,
-        payload: error.response ? error.response.data.message : error,
-      });
-      setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);
+      let msg = error.response ? error.response.data.message : error.message;
+      errorResponse(msg, dispatch);
     }
   };
 
@@ -43,11 +41,8 @@ export const login = (email, password, history) => async (dispatch) => {
     sessionStorage.setItem('user', JSON.stringify(data));
     history.push('/home');
   } catch (error) {
-    dispatch({
-      type: USER_FAILURE,
-      payload: error.response ? error.response.data.message : error,
-    });
-    setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 
@@ -59,8 +54,8 @@ export const logout = () => async (dispatch) => {
 
     dispatch({ type: LOGOUT, payload: data });
   } catch (error) {
-    console.log(error);
-    dispatch({ type: USER_FAILURE });
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
 
@@ -70,7 +65,7 @@ export const deleteProfile = (id) => async (dispatch) => {
     dispatch({ type: DELETE_PROFILE, payload: data });
     sessionStorage.removeItem('user');
   } catch (error) {
-    console.log(error.response);
-    dispatch({ type: USER_FAILURE });
+    let msg = error.response ? error.response.data.message : error.message;
+    errorResponse(msg, dispatch);
   }
 };
