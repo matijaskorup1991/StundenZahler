@@ -1,13 +1,10 @@
 import axios from 'axios';
-import store from '../store';
 import {
   GET_ALL_MONTHS,
   GET_MONTH,
   DELETE_MONTH,
-  FAILURE,
   CREATE_MONTH,
   MOVE_DAYS_TO_MONTH,
-  REMOVE_ALERT,
 } from '../actionTypes';
 import { responseMessage } from './alert';
 

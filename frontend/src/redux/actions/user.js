@@ -1,12 +1,5 @@
 import axios from 'axios';
-import {
-  REGISTER,
-  LOGIN,
-  LOGOUT,
-  USER_FAILURE,
-  DELETE_PROFILE,
-  REMOVE_ALERT,
-} from '../actionTypes';
+import { REGISTER, LOGIN, LOGOUT, DELETE_PROFILE } from '../actionTypes';
 import { responseMessage } from '../actions/alert';
 
 export const register =

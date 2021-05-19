@@ -4,11 +4,7 @@ import {
   CREATE_DAY,
   UPDATE_DAY,
   DELETE_DAY,
-  FAILURE,
   CLEAR_DAYS,
-  DELETE_MESSAGE,
-  CLEAR_MESSAGE,
-  DAY_FAILURE,
 } from '../actionTypes';
 import { responseMessage } from './alert';
 

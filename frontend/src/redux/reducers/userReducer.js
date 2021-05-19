@@ -9,7 +9,6 @@ import {
 const initialState = {
   user: null,
   error: null,
-  message: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,26 +18,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
-        message: null,
       };
 
     case LOGOUT:
       return {
         ...state,
         user: null,
-        message: action.payload.message,
       };
 
-    case USER_FAILURE:
-      return {
-        user: null,
-        error: action.payload,
-      };
-    case REMOVE_ALERT:
-      return {
-        ...state,
-        error: null,
-      };
     default:
       return state;
   }

@@ -2,14 +2,12 @@ import {
   GET_ALL_MONTHS,
   GET_MONTH,
   DELETE_MONTH,
-  FAILURE,
   CREATE_MONTH,
   LOGOUT,
 } from '../actionTypes';
 
 const initialState = {
   months: [],
-  month: null,
   count: 0,
 };
 
@@ -42,11 +40,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         months: [],
         count: 0,
-      };
-    case FAILURE:
-      return {
-        ...state,
-        months: [],
       };
     default:
       return state;
