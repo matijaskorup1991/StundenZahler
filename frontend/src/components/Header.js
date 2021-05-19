@@ -9,11 +9,11 @@ import DeleteProfile from './DeleteProfile';
 import '../styles/header.scss';
 
 const Header = () => {
+  let sideNv = document.querySelector('.side-nav');
+
   const history = useHistory();
 
   const [sideNav, setSideNav] = useState(false);
-
-  // useEffect(() => {}, [sideNav]);
 
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userReducer);

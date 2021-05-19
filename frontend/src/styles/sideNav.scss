@@ -36,3 +36,9 @@
 .side-nav-show {
   transform: translateX(0);
 }
+
+@media (min-width: 768px) {
+  .side-nav-show {
+    display: none;
+  }
+}
