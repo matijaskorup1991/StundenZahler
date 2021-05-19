@@ -18,6 +18,7 @@ const App = () => {
   return (
     <BrowserRouter>
       {user && <Header />}
+
       <Switch>
         <Route exact path='/' component={Landing} />
         <PrivateRoute exact path='/home' component={HomePage} />

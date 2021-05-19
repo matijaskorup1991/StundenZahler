@@ -1,0 +1,17 @@
+.delete-profile {
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  background-color: lightcoral;
+  padding: 1rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  border: 2px solid white;
+  transition: all 0.3s linear;
+}
+
+.delete-profile:hover {
+  background-color: red;
+  border: 2px solid black;
+  box-sizing: border-box;
+}

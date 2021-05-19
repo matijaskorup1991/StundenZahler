@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../redux/actions/user';
 import SideNav from './SideNav';
+import DeleteProfile from './DeleteProfile';
+
 import '../styles/header.scss';
 
 const Header = () => {
@@ -54,6 +56,7 @@ const Header = () => {
         classes={sideNav ? 'side-nav side-nav-show' : 'side-nav'}
         onClick={logoutUser}
       />
+      <DeleteProfile />
     </>
   );
 };
