@@ -16,7 +16,9 @@ const Months = () => {
   const [term, setTerm] = useState('');
 
   const handleDelete = (id) => {
-    dispatch(deleteMonth(id));
+    if (window.confirm('Are you sure you want to delete?')) {
+      dispatch(deleteMonth(id));
+    }
   };
 
   useEffect(() => {

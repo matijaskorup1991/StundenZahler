@@ -7,7 +7,7 @@ import {
   DELETE_PROFILE,
   REMOVE_ALERT,
 } from '../actionTypes';
-import { alert, errorResponse } from '../actions/alert';
+import { responseMessage } from '../actions/alert';
 
 export const register =
   (username, email, password, history) => async (dispatch) => {
@@ -26,7 +26,7 @@ export const register =
       history.push('/home');
     } catch (error) {
       let msg = error.response ? error.response.data.message : error.message;
-      errorResponse(msg, dispatch);
+      responseMessage(msg, dispatch);
     }
   };
 
@@ -42,7 +42,7 @@ export const login = (email, password, history) => async (dispatch) => {
     history.push('/home');
   } catch (error) {
     let msg = error.response ? error.response.data.message : error.message;
-    errorResponse(msg, dispatch);
+    responseMessage(msg, dispatch);
   }
 };
 
@@ -55,7 +55,7 @@ export const logout = () => async (dispatch) => {
     dispatch({ type: LOGOUT, payload: data });
   } catch (error) {
     let msg = error.response ? error.response.data.message : error.message;
-    errorResponse(msg, dispatch);
+    responseMessage(msg, dispatch);
   }
 };
 
@@ -66,6 +66,6 @@ export const deleteProfile = (id) => async (dispatch) => {
     sessionStorage.removeItem('user');
   } catch (error) {
     let msg = error.response ? error.response.data.message : error.message;
-    errorResponse(msg, dispatch);
+    responseMessage(msg, dispatch);
   }
 };

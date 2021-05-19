@@ -39,7 +39,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         days: [],
-        message: action.payload.data.message,
       };
     case DELETE_MESSAGE:
       return {

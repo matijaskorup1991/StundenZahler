@@ -9,7 +9,7 @@ import {
   MOVE_DAYS_TO_MONTH,
   REMOVE_ALERT,
 } from '../actionTypes';
-import { errorResponse, alert } from './alert';
+import { responseMessage } from './alert';
 
 export const getAllMonths = () => async (dispatch) => {
   try {
@@ -22,7 +22,7 @@ export const getAllMonths = () => async (dispatch) => {
     });
   } catch (error) {
     let msg = error.response ? error.response.data.message : error.message;
-    errorResponse(msg, dispatch);
+    responseMessage(msg, dispatch);
   }
 };
 
@@ -38,7 +38,7 @@ export const getMonth = (id) => async (dispatch) => {
     });
   } catch (error) {
     let msg = error.response ? error.response.data.message : error.message;
-    errorResponse(msg, dispatch);
+    responseMessage(msg, dispatch);
   }
 };
 
@@ -48,14 +48,11 @@ export const saveToMonth = (data) => async (dispatch) => {
     let data1 = await axios.post('/api/month/', { data });
     let data2 = await axios.delete('/api/day/move', { user_id });
     dispatch({ type: CREATE_MONTH, payload: data1.data.data });
-    dispatch({
-      type: MOVE_DAYS_TO_MONTH,
-      payload: data2,
-    });
-    setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);
+    dispatch({ type: MOVE_DAYS_TO_MONTH });
+    responseMessage(data2.data.message, dispatch);
   } catch (error) {
     let msg = error.response ? error.response.data.message : error.message;
-    errorResponse(msg, dispatch);
+    responseMessage(msg, dispatch);
   }
 };
 
@@ -67,9 +64,9 @@ export const deleteMonth = (id) => async (dispatch) => {
       type: DELETE_MONTH,
       payload: data.id,
     });
-    errorResponse(data.message, dispatch);
+    responseMessage(data.message, dispatch);
   } catch (error) {
     let msg = error.response ? error.response.data.message : error.message;
-    errorResponse(msg, dispatch);
+    responseMessage(msg, dispatch);
   }
 };

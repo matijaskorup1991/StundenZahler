@@ -19,5 +19,13 @@
 .months-content {
   display: flex;
   flex-wrap: wrap;
-  padding: 10vh 10vh;
+  padding: 10vh 0;
+}
+
+@media (max-width: 768px) {
+  .months-search {
+    #search {
+      font-size: 1.3rem;
+    }
+  }
 }

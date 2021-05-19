@@ -91,3 +91,23 @@
 .days-delete:hover {
   background-color: coral;
 }
+
+@media (max-width: 768px) {
+  .days {
+    padding: 10vh 3%;
+  }
+}
+
+@media (max-width: 550px) {
+  .create-day-form {
+    text-align: center;
+    margin-bottom: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    input {
+      margin: 0.5rem 1rem;
+    }
+  }
+}

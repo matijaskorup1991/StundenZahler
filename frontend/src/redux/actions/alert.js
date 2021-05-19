@@ -10,7 +10,7 @@ export const alert =
     setTimeout(() => dispatch({ type: REMOVE_ALERT }), timeout);
   };
 
-export const errorResponse = (err, dispatch) => {
+export const responseMessage = (err, dispatch) => {
   dispatch({
     type: SET_ALERT,
     payload: err,

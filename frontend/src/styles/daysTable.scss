@@ -13,3 +13,12 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .days-collection {
+    table {
+      margin: 0 auto;
+      width: 90%;
+    }
+  }
+}
