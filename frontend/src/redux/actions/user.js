@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { REGISTER, LOGIN, LOGOUT, DELETE_PROFILE } from '../actionTypes';
+import {
+  REGISTER,
+  LOGIN,
+  LOGOUT,
+  DELETE_PROFILE,
+  CLEAR_ALL,
+} from '../actionTypes';
 import { responseMessage } from '../actions/alert';
 
 export const register =
@@ -54,9 +60,10 @@ export const logout = () => async (dispatch) => {
 
 export const deleteProfile = (id) => async (dispatch) => {
   try {
-    let data = await axios.delete(`/deleteProfile/${id}`);
+    let data = await axios.delete(`/api/user/deleteProfile/${id}`);
     dispatch({ type: DELETE_PROFILE, payload: data });
-    sessionStorage.removeItem('user');
+    dispatch({ type: CLEAR_ALL });
+    sessionStorage.clear();
   } catch (error) {
     let msg = error.response ? error.response.data.message : error.message;
     responseMessage(msg, dispatch);

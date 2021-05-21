@@ -4,6 +4,7 @@ import {
   LOGIN,
   LOGOUT,
   REMOVE_ALERT,
+  DELETE_PROFILE,
 } from '../actionTypes';
 
 const initialState = {
@@ -24,8 +25,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+        error: null,
       };
-
+    case DELETE_PROFILE:
+      return {
+        ...state,
+        user: null,
+        error: null,
+      };
     default:
       return state;
   }

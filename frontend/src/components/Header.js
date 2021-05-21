@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { logout } from '../redux/actions/user';
+import { logout, deleteProfile } from '../redux/actions/user';
 import SideNav from './SideNav';
 import DeleteProfile from './DeleteProfile';
 
@@ -25,6 +25,14 @@ const Header = () => {
 
   const openSideNav = () => {
     setSideNav(!sideNav);
+  };
+
+  const deleteProfile = () => {
+    let idToDelete = JSON.parse(sessionStorage.getItem('user')).userId;
+    console.log(idToDelete);
+    if (window.confirm('Are you sure you want to delete this profile?')) {
+      dispatch(deleteProfile(idToDelete));
+    }
   };
 
   return (
@@ -56,7 +64,7 @@ const Header = () => {
         classes={sideNav ? 'side-nav side-nav-show' : 'side-nav'}
         onClick={logoutUser}
       />
-      <DeleteProfile />
+      <DeleteProfile onClick={deleteProfile} />
     </>
   );
 };

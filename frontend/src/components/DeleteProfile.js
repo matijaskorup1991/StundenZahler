@@ -1,8 +1,12 @@
 import React from 'react';
 import '../styles/deleteProfile.scss';
 
-const DeleteProfile = () => {
-  return <div className='delete-profile'>DELETE PROFILE</div>;
+const DeleteProfile = ({ onClick }) => {
+  return (
+    <div onClick={onClick} className='delete-profile'>
+      DELETE PROFILE
+    </div>
+  );
 };
 
 export default DeleteProfile;

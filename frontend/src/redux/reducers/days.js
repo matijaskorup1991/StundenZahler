@@ -6,6 +6,7 @@ import {
   LOGOUT,
   CLEAR_DAYS,
   MOVE_DAYS_TO_MONTH,
+  CLEAR_ALL,
 } from '../actionTypes';
 
 const initialState = {
@@ -47,6 +48,7 @@ const reducer = (state = initialState, action) => {
         days: [],
       };
     case LOGOUT:
+    case CLEAR_ALL:
       return {
         ...state,
         days: [],

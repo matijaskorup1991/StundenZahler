@@ -4,6 +4,7 @@ import {
   DELETE_MONTH,
   CREATE_MONTH,
   LOGOUT,
+  CLEAR_ALL,
 } from '../actionTypes';
 
 const initialState = {
@@ -36,6 +37,7 @@ const reducer = (state = initialState, action) => {
         months: state.months.filter((el) => el.id != action.payload),
       };
     case LOGOUT:
+    case CLEAR_ALL:
       return {
         ...state,
         months: [],
