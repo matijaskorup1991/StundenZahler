@@ -60,8 +60,8 @@ export const logout = () => async (dispatch) => {
 
 export const deleteProfile = (id) => async (dispatch) => {
   try {
-    let data = await axios.delete(`/api/user/deleteProfile/${id}`);
-    dispatch({ type: DELETE_PROFILE, payload: data });
+    await axios.delete(`/api/user/deleteProfile/${id}`);
+    dispatch({ type: DELETE_PROFILE });
     dispatch({ type: CLEAR_ALL });
     sessionStorage.clear();
   } catch (error) {
