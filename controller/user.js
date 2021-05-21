@@ -20,7 +20,6 @@ function sendTokenResponse(user, statusCode, res) {
 
   res.status(statusCode).cookie('token', token, options).json({
     sucess: true,
-    token,
     username: user.rows[0].username,
     userId: user.rows[0].id,
     email: user.rows[0].email,
@@ -42,7 +41,6 @@ const register = asyncCall(async (req, res, next) => {
   }
 
   user = await db.query('select * from users where email=$1', [email]);
-  console.log(user);
 
   if (user.rows[0]) {
     return next(new ErrorHandler('User already exists!', 401));
@@ -62,7 +60,6 @@ const register = asyncCall(async (req, res, next) => {
 
 const login = asyncCall(async (req, res, next) => {
   const { email, password } = req.body;
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
 
   let user = await db.query('select * from users where email =$1', [email]);
 
@@ -76,7 +73,6 @@ const login = asyncCall(async (req, res, next) => {
     return next(new ErrorHandler('Wrong password!', 403));
   }
 
-  console.log(sendTokenResponse(user, 200, res));
   sendTokenResponse(user, 200, res);
 });
 

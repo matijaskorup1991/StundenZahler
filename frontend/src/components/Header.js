@@ -29,7 +29,7 @@ const Header = () => {
     <>
       <div className='header'>
         <h2>{user.username}</h2>
-        <div classList='header-nav-links'>
+        <div className='header-nav-links'>
           <NavLink activeStyle={{ color: 'red' }} to='/home'>
             Home
           </NavLink>
@@ -51,7 +51,7 @@ const Header = () => {
         <div></div>
       </div>
       <SideNav
-        classes={sideNav ? 'side-nav side-nav-show' : 'side-nav'}
+        addStyles={sideNav ? 'side-nav side-nav-show' : 'side-nav'}
         onClick={logoutUser}
       />
       <DeleteProfile />

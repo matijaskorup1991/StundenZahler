@@ -2,9 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../styles/sideNav.scss';
 
-const SideNav = ({ onClick, classes }) => {
+const SideNav = ({ onClick, addStyles }) => {
   return (
-    <div className={classes}>
+    <div className={addStyles}>
       <ul>
         <li>
           <NavLink activeStyle={{ color: 'red' }} to='/home'>
