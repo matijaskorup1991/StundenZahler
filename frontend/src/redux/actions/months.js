@@ -11,7 +11,6 @@ import { responseMessage } from './alert';
 export const getAllMonths = () => async (dispatch) => {
   try {
     const { data } = await axios.get('/api/month/');
-    console.log(data.months);
 
     dispatch({
       type: GET_ALL_MONTHS,
@@ -28,7 +27,6 @@ export const getMonth = (id) => async (dispatch) => {
     let {
       data: { data },
     } = await axios.get(`/api/month/${id}`);
-    console.log(data);
     dispatch({
       type: GET_MONTH,
       payload: data,
@@ -56,7 +54,6 @@ export const saveToMonth = (data) => async (dispatch) => {
 export const deleteMonth = (id) => async (dispatch) => {
   try {
     let { data } = await axios.delete(`/api/month/${id}`);
-    console.log(data);
     dispatch({
       type: DELETE_MONTH,
       payload: data.id,

@@ -25,18 +25,22 @@ const Header = () => {
     setSideNav(!sideNav);
   };
 
+  const inputStyle = {
+    color: 'red',
+  };
+
   return (
     <>
       <div className='header'>
         <h2>{user.username}</h2>
         <div className='header-nav-links'>
-          <NavLink activeStyle={{ color: 'red' }} to='/home'>
+          <NavLink activeStyle={inputStyle} to='/home'>
             Home
           </NavLink>
-          <NavLink activeStyle={{ color: 'red' }} to='/months'>
+          <NavLink activeStyle={inputStyle} to='/months'>
             My Months
           </NavLink>
-          <NavLink activeStyle={{ color: 'red' }} to='/days'>
+          <NavLink activeStyle={inputStyle} to='/days'>
             Add Work Day
           </NavLink>
           <div onClick={logoutUser}>Logout</div>

@@ -16,7 +16,6 @@ export const register =
         email,
         password,
       });
-      console.log(data);
       dispatch({
         type: REGISTER,
         payload: data,

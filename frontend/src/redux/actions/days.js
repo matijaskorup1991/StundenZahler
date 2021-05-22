@@ -24,7 +24,6 @@ export const getAllDays = () => async (dispatch) => {
 
 export const createDay = (date, hours) => async (dispatch) => {
   try {
-    console.log(date);
     let { data } = await axios.post('/api/day/', { date, hours });
     dispatch({ type: CREATE_DAY, payload: data });
   } catch (error) {
@@ -49,7 +48,6 @@ export const updateDay = (id, date, hours) => async (dispatch) => {
 export const deleteDay = (id) => async (dispatch) => {
   try {
     let { data } = await axios.delete(`/api/day/${id}`);
-    console.log(data);
     dispatch({ type: DELETE_DAY, payload: id });
     responseMessage(data.message, dispatch);
   } catch (error) {
